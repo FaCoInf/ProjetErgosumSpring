@@ -1,4 +1,4 @@
-package com.epul.ergosum.controle;
+package com.epul.ergosum.controller;
 
 import java.util.Locale;
 
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
-import com.epul.ergosum.metier.Jouet;
+import com.epul.ergosum.model.Jouet;
 
 /**
  * Handles requests for the application home page.
@@ -38,7 +38,7 @@ public class MultiController extends MultiActionController {
 	return new ModelAndView("index");
 	}
 	// /
-	// / Démarrage de l'application
+	// / Dï¿½marrage de l'application
 	// /
 	@RequestMapping(value = "/index")
 	public String index(Locale locale, Model model) {

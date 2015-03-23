@@ -1,4 +1,4 @@
-package com.epul.ergosum.metier;
+package com.epul.ergosum.model;
 
 // Generated 24 avr. 2014 11:38:54 by Hibernate Tools 4.0.0
 

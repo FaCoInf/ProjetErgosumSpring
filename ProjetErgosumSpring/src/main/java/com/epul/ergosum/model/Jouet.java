@@ -1,4 +1,4 @@
-package com.epul.ergosum.metier;
+package com.epul.ergosum.model;
 
 import java.util.HashSet;
 import java.util.Set;
