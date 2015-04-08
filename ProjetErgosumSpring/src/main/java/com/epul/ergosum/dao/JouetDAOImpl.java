@@ -34,11 +34,12 @@ public class JouetDAOImpl implements JouetDAO {
 
 		List<Jouet> jouets = query.list();
 
+		// TODO supprimer affichage
 		for (Jouet jouet : jouets) {
 			System.out.println(jouet.toString());
 		}
 
-		return null;
+		return jouets;
 	}
 
 }

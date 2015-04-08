@@ -40,7 +40,7 @@ public class MultiController extends MultiActionController {
 	@RequestMapping(value = "index.htm")
 	public ModelAndView Afficheindex(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-
+		// TODO supprimer
 		List<Jouet> jouets = jouetDAO.getAllJouet();
 		return new ModelAndView("index");
 	}
@@ -50,8 +50,6 @@ public class MultiController extends MultiActionController {
 	// /
 	@RequestMapping(value = "/index")
 	public String index(Locale locale, Model model) {
-		// JouetDAOImpl jouet = new JouetDAOImpl();
-		// List<Jouet> jouets = jouet.getAllJouet();
 		return "index";
 	}
 	// @RequestMapping(value = "Accueil.htm", method = RequestMethod.GET)
