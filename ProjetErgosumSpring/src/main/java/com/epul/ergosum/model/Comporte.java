@@ -1,7 +1,10 @@
 package com.epul.ergosum.model;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -38,8 +41,11 @@ public class Comporte implements java.io.Serializable {
 		this.quantite = quantite;
 	}
 
-	@Id
-	// @Column(name = "")
+	@EmbeddedId
+	@AttributeOverrides({
+	    @AttributeOverride(name="annee", column=@Column(name="ANNEE") ),
+	    @AttributeOverride(name="numero", column=@Column(name="NUMERO") )
+	    })
 	public ComporteId getId() {
 		return this.id;
 	}
