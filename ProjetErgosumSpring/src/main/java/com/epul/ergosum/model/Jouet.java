@@ -110,8 +110,8 @@ public class Jouet implements java.io.Serializable {
 		this.numero = numero;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "CODECATEG")
+	@ManyToOne(targetEntity = Categorie.class)
+	@JoinColumn(name = "jouets")
 	public Categorie getCategorie() {
 		return this.categorie;
 	}
