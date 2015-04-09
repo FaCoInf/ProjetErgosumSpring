@@ -1,6 +1,5 @@
 package com.epul.ergosum.controller;
 
-import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,7 +40,7 @@ public class MultiController extends MultiActionController {
 	public ModelAndView Afficheindex(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		// TODO supprimer
-		List<Jouet> jouets = jouetDAO.getAllJouet();
+		// List<Jouet> jouets = jouetDAO.getAllJouet();
 		return new ModelAndView("index");
 	}
 

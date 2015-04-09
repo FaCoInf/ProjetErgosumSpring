@@ -43,8 +43,8 @@ public class Comporte implements java.io.Serializable {
 
 	@EmbeddedId
 	@AttributeOverrides({
-			@AttributeOverride(name = "annee", column = @Column(name = "ANNEE")),
-			@AttributeOverride(name = "numero", column = @Column(name = "NUMERO")) })
+			@AttributeOverride(name = "idannee", column = @Column(name = "ANNEE")),
+			@AttributeOverride(name = "idnumero", column = @Column(name = "NUMERO")) })
 	public ComporteId getId() {
 		return this.id;
 	}
