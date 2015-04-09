@@ -21,6 +21,11 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>com.epul.ergosum.model.Jouet</value>
+				<value>com.epul.ergosum.model.Catalogue</value>
+				<value>com.epul.ergosum.model.Categorie</value>
+				<value>com.epul.ergosum.model.Comporte</value>
+				<value>com.epul.ergosum.model.Trancheage</value>
+				<value>com.epul.ergosum.model.ComporteId</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
