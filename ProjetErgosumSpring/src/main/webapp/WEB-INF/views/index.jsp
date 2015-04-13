@@ -29,7 +29,7 @@
 				<ul class="nav nav-pills nav-justified">
 					<li role="presentation" class="active"><a href="#">Accueil</a></li>
 					<li role="presentation"><a
-						href="Controleur?action=afficheStage">Jouets</a></li>
+						href="afficherJouets.htm">Jouets</a></li>
 					<li role="presentation"><a
 						href="Controleur?action=rechercheStage">Catalogues</a></li>
 					<li role="presentation"><a

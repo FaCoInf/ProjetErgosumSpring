@@ -6,6 +6,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.MappingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +41,6 @@ public class MultiController extends MultiActionController {
 	@RequestMapping(value = "index.htm")
 	public ModelAndView Afficheindex(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		// TODO supprimer
-		List<Jouet> jouets = jouetDAO.getAllJouet();
 		return new ModelAndView("index");
 	}
 
@@ -52,66 +51,7 @@ public class MultiController extends MultiActionController {
 	public String index(Locale locale, Model model) {
 		return "index";
 	}
-	
-//	 /*
-//		 * Sélection d'une année Ctagoriet
-//		 */
-//		@RequestMapping(value = "listerCatalogue.htm")
-//
-//	public ModelAndView choixCatalogue(HttpServletRequest request,
-//				HttpServletResponse response) throws Exception {
-//
-//			String destinationPage = "/Erreur";
-//			try
-//			{
-//				GestionErgosum unService = new GestionErgosum();
-//				
-//				if (unService != null)
-//					request.setAttribute("catalogues", unService.listerTousLesCatalogues());
-//				    destinationPage = "/ChoixCatalogue";
-//			}  catch (MonException e)
-//			{
-//				request.setAttribute("MesErreurs", e.getMessage());
-//			}
-//			
-//			
-//			return new ModelAndView(destinationPage);	
-//		}
-//
-//
-//
-//	/**
-//		 *  afficher Catalogue
-//		 */	
-//		@RequestMapping(value = "afficherCatalogues.htm")
-//		public ModelAndView afficherCatalogue(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//
-//			String destinationPage = "/Erreur";
-//			try
-//			{
-//				String id = request.getParameter("id");
-//				GestionErgosum unService = new GestionErgosum();
-//				
-//				if (unService != null)
-//				{
-//						// preparation de la liste
-//					request.setAttribute("mesCataloguesQuantites", unService.listerCatalogueQuantites(Integer.parseInt(request.getParameter("anneeDebut")), Integer.parseInt(request.getParameter("nbAnnees"))));	
-//				    destinationPage = "/AfficherCatalogues";
-//				}
-//			} 
-//				
-//					catch (MonException e)
-//					{
-//						request.setAttribute("MesErreurs", e.getMessage());
-//					}
-//			
-//			return new ModelAndView(destinationPage);	
-//		}
-	
-	
-	
-	
-	
+
 	// @RequestMapping(value = "Accueil.htm", method = RequestMethod.GET)
 	// public String home(Locale locale, Model model) {
 	// logger.info("Welcome home! The client locale is {}.", locale);
@@ -123,47 +63,43 @@ public class MultiController extends MultiActionController {
 	// model.addAttribute("serverTime", formattedDate);
 	// return "/Accueil";
 	// }
-	//
-	// /**
-	// * Affichage de tous les jouets
-	// */
-	// @RequestMapping(value = "afficherJouets.htm")
-	// public ModelAndView afficherLesJouets(HttpServletRequest request,
-	// HttpServletResponse response) throws Exception {
-	//
-	// String destinationPage = "";
-	// try {
-	// GestionErgosum unService = new GestionErgosum();
-	// if (unService != null) {
-	// int categorieCode;
-	// int trancheCode;
-	// String categorie = request.getParameter("codecateg");
-	// String tranche = request.getParameter("codetranche");
-	// if (categorie == null && tranche == null) {
-	// categorieCode = 0;
-	// trancheCode = 0;
-	// } else {
-	// categorieCode = Integer.parseInt(categorie);
-	// trancheCode = Integer.parseInt(tranche);
-	// }
-	// request.setAttribute("mesJouets", unService
-	// .listerTousLesJouets(categorieCode, trancheCode));
-	//
-	// request.setAttribute("categories",
-	// unService.listerToutesLesCategories());
-	// request.setAttribute("tranches",
-	// unService.listerToutesLesTranches());
+	
+	 /**
+	 * Affichage de tous les jouets
+	 */
+	 @RequestMapping(value = "afficherJouets.htm")
+	 public ModelAndView afficherLesJouets(HttpServletRequest request,
+	 HttpServletResponse response) throws Exception {
+	
+	 String destinationPage = "";
+	 try {
+		 
+				int categorieCode;
+				int trancheCode;
+				String categorie = request.getParameter("codecateg");
+				String tranche = request.getParameter("codetranche");
+				if(categorie == null && tranche == null) {
+					categorieCode = 0;
+					trancheCode = 0;
+				} else {
+					categorieCode = Integer.parseInt(categorie);
+					trancheCode = Integer.parseInt(tranche);
+				}
+		 
+				 List<Jouet> jouets = jouetDAO.getAllJouet(); // en fonction code & tranche
+		 request.setAttribute("mesJouets",jouets);
 
-	// }
-	// }
-	//
-	// catch (MonException e) {
-	// request.setAttribute("MesErreurs", e.getMessage());
-	// }
-	// destinationPage = "/ListeJouets";
-	//
-	// return new ModelAndView(destinationPage);
-	// }
+//		request.setAttribute("categories", unService.listerToutesLesCategories());
+//		request.setAttribute("tranches", unService.listerToutesLesTranches());
+		
+			return new ModelAndView("ListerJouets");
+	 }catch (MappingException e) {
+	 request.setAttribute("MesErreurs", e.getMessage());
+	 }
+	 destinationPage = "/ListerJouets";
+	
+	 return new ModelAndView(destinationPage);
+	 }
 
 	// /**
 	// * Ajout d'un jouet
