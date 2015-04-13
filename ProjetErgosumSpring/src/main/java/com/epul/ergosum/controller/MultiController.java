@@ -52,6 +52,66 @@ public class MultiController extends MultiActionController {
 	public String index(Locale locale, Model model) {
 		return "index";
 	}
+	
+//	 /*
+//		 * Sélection d'une année Ctagoriet
+//		 */
+//		@RequestMapping(value = "listerCatalogue.htm")
+//
+//	public ModelAndView choixCatalogue(HttpServletRequest request,
+//				HttpServletResponse response) throws Exception {
+//
+//			String destinationPage = "/Erreur";
+//			try
+//			{
+//				GestionErgosum unService = new GestionErgosum();
+//				
+//				if (unService != null)
+//					request.setAttribute("catalogues", unService.listerTousLesCatalogues());
+//				    destinationPage = "/ChoixCatalogue";
+//			}  catch (MonException e)
+//			{
+//				request.setAttribute("MesErreurs", e.getMessage());
+//			}
+//			
+//			
+//			return new ModelAndView(destinationPage);	
+//		}
+//
+//
+//
+//	/**
+//		 *  afficher Catalogue
+//		 */	
+//		@RequestMapping(value = "afficherCatalogues.htm")
+//		public ModelAndView afficherCatalogue(HttpServletRequest request, HttpServletResponse response) throws Exception {
+//
+//			String destinationPage = "/Erreur";
+//			try
+//			{
+//				String id = request.getParameter("id");
+//				GestionErgosum unService = new GestionErgosum();
+//				
+//				if (unService != null)
+//				{
+//						// preparation de la liste
+//					request.setAttribute("mesCataloguesQuantites", unService.listerCatalogueQuantites(Integer.parseInt(request.getParameter("anneeDebut")), Integer.parseInt(request.getParameter("nbAnnees"))));	
+//				    destinationPage = "/AfficherCatalogues";
+//				}
+//			} 
+//				
+//					catch (MonException e)
+//					{
+//						request.setAttribute("MesErreurs", e.getMessage());
+//					}
+//			
+//			return new ModelAndView(destinationPage);	
+//		}
+	
+	
+	
+	
+	
 	// @RequestMapping(value = "Accueil.htm", method = RequestMethod.GET)
 	// public String home(Locale locale, Model model) {
 	// logger.info("Welcome home! The client locale is {}.", locale);
