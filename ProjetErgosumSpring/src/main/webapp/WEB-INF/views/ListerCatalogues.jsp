@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,6 +9,14 @@
 	rel="stylesheet" />
 <link href="resources/stylesheets/css/style.css" rel="stylesheet">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script src="resources/stylesheets/jquery-2.1.3.js"></script>
+<script type="text/javascript">
+	function Chargement() {
+		var obj = document.getElementById("id_erreur");
+		if (obj.value != '')
+			alert('Erreur signalée  : "' + obj.value + "'");
+	}
+</script>
 <title>Ergosum</title>
 </head>
 <body>
@@ -17,19 +26,17 @@
 		<!-- Entete -->
 		<div class="page-header">
 			<h1>
-				<a href="#">ERGOSUM</a> <small>${serverTime}</small>
+				<a href="#">ERGOSUM</a>
 			</h1>
 		</div>
 
-		<!-- 		Barre de navigation -->
+		<!-- Barre de navigation -->
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 			<div class="navbar-collapse collapse">
 				<ul class="nav nav-pills nav-justified">
-					<li class="active" role="presentation"><a href="index.htm">Accueil</a></li>
-					<li role="presentation"><a
-						href="afficherJouets.htm">Jouets</a></li>
-					<li role="presentation"><a
-						href="listerCatalogues.htm">Catalogues</a></li>
+					<li role="presentation"><a href="index.htm">Accueil</a></li>
+					<li role="presentation"><a href="afficherJouets.htm">Jouets</a></li>
+					<li role="presentation" class="active" ><a href="listerCatalogues.htm">Catalogues</a></li>
 					<li role="presentation"><a
 						href="afficherDictionnaire.htm">Dictionnaires</a></li>
 				</ul>
@@ -37,20 +44,38 @@
 			<br> <br>
 		</div>
 
-		<!-- 		Contenu -->
-		<section class="row">
-		<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
-			<h2>Bienvenue</h2>
-			Cette application vous permettra de modifier les jouets ainsi que
-			leurs catalogues. <br> En vous souhaitant une agréable visite.<br><br>
-		<div class="col-xs-5 col-sm-2 col-md-2 col-lg-2">
-<!-- 		<span class="txt"> -->
-		<img align="right" class="img-responsive" alt="Polytech Lyon" src="resources/pictures/polytech.png"></img>
-<!-- 		</span> -->
-		</div>
-		</div>
+		<!-- Contenu -->
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+				<h2>Liste des jouets</h2>
+				<input type="hidden" name="uneErreur" value="${MesErreurs}"
+					id="id_erreur">
+				<table class="table table-bordered">
+					<!-- <CAPTION>Tableau des Stages</CAPTION> -->
+					<thead>
+						<tr>
+							<th class="col-md-2">Catégorie</th>
+							<th class="col-md-2">Quantitée affectée</th>
+							<th class="col-md-2">Quantitée distribuée</th>
+							<th class="col-md-2">Différence</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${mesCatalogues}" var="itemCatalogue">
+							<c:forEach items="${itemCatalogue.comportes}" var="itemComporte">
+								<tr>
+									<td>Année ${itemCatalogue.annee}"</td>
+									<td>${itemComporte.quantite}</td>
+									<td>${itemCatalogue.quantiteDistribuee}</td>
+									<td>${itemComporte.quantite - itemCatalogue.quantiteDistribuee}</td>
+								</tr>
+							</c:forEach>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
 
-		<!-- aside -->
+			<!-- aside -->
 			<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
 				<ul class="nav nav-pills nav-stacked">
 					<li role="presentation"><a href="index.htm">Accueil</a></li>
@@ -67,17 +92,13 @@
 							</div>
 						</div></li>
 					<hr>
-					<li role="presentation"><a
-						href="listerCatalogues.htm">Catalogues</a></li>
+					<li class="active" role="presentation"><a href="listerCatalogues.htm">Catalogues</a></li>
 					<hr>
-					<li role="presentation"><a
+					<li role="presentation" ><a
 						href="afficherDictionnaire.htm">Dictionnaires</a></li>
 				</ul>
 			</div>
-
-
-
-		</section>
+		</div>
 
 		<!--         <footer class="row"> -->
 		<!--         <div class="col-sm-12"> -->
@@ -86,5 +107,6 @@
 		<!--       </footer> -->
 
 	</div>
+
 </body>
 </html>
