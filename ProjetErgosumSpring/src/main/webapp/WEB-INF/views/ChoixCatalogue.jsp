@@ -9,22 +9,6 @@
 	rel="stylesheet" />
 <link href="resources/stylesheets/css/style.css" rel="stylesheet">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<script src="resources/stylesheets/jquery-2.1.3.js"></script>
-<script type="text/javascript">
-	function Chargement() {
-		var obj = document.getElementById("id_erreur");
-		if (obj.value != '')
-			alert('Erreur signalée  : "' + obj.value + "'");
-	}
-	$(document).ready(function() {
-		$('#selecctall').click(function(event) {
-			$('.checkbox').each(function() {
-				this.checked = true;
-			});
-		});
-
-	});
-</script>
 <title>Ergosum</title>
 </head>
 <body>
@@ -34,7 +18,7 @@
 		<!-- Entete -->
 		<div class="page-header">
 			<h1>
-				<a href="#">ERGOSUM</a> <small>Retrouvez ci-dessous vos jouets préférés !</small>
+				<a href="#">ERGOSUM</a>
 			</h1>
 		</div>
 
@@ -43,57 +27,52 @@
 			<div class="navbar-collapse collapse">
 				<ul class="nav nav-pills nav-justified">
 					<li role="presentation"><a href="index.htm">Accueil</a></li>
-					<li class="active" role="presentation"><a
+					<li role="presentation"><a
 						href="afficherJouets.htm">Jouets</a></li>
-					<li role="presentation"><a href="listerCatalogues.htm">Catalogues</a></li>
+					<li  class="active" role="presentation"><a href="listerCatalogues.htm">Catalogues</a></li>
 					<li role="presentation"><a href="afficherDictionnaire.htm">Dictionnaires</a></li>
 				</ul>
 			</div>
 			<br> <br>
 		</div>
 
-		<!-- Contenu -->
+		<!-- 		Contenu -->
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
-				<h2>Liste des jouets</h2>
+				<!-- 		mettre titre en variable et faire même saisie pour add ou modif -->
+				<h2>Choix du catalogue</h2>
 				<input type="hidden" name="uneErreur" value="${MesErreurs}"
 					id="id_erreur">
-				<form class="form-horizontal" method="post" action="effacerJouet.htm"
+				<form class="form-horizontal" method="post" action="afficherCatalogues.htm"
 					onsubmit="">
-					<table class="table table-bordered">
-						<!-- <CAPTION>Tableau des Stages</CAPTION> -->
-						<thead>
-							<tr>
-								<th class="col-md-2"><a id="selecctall">Sélectionner
-										tout les éléments</a></th>
-								<th class="col-md-2">Action</th>
-								<th class="col-md-2">Numero</th>
-								<th class="col-md-2">Libellé</th>
-								<th class="col-md-2">Code catégorie</th>
-								<th class="col-md-2">Code tranche Age</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="${mesJouets}" var="item">
-								<tr>
-									<td><input type="checkbox" class="checkbox"
-										id="${item.numero}" aria-label=""></td>
-									<td><a href="modifierJouet.htm?id=${item.numero}">Modifier</a></td>
-									<td>${item.numero}</td>
-									<td>${item.libelle}</td>
-									<td>${item.categorie.codecateg}</td>
-									<td>${item.trancheage.codetranche}</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
+					<input type="hidden" name="type" value="choixCatalogue" id="type" /> <input
+						type="hidden" name="action" value="choixCatalogue" />
 
-					<!-- Boutons Supprimer -->
+					<!-- input fields -->
+					<div class="form-group">
+						<label class="col-sm-4 col-md-5 control-label">Choisir par date :</label>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 col-md-5 control-label">Année de départ :</label>
+						<div class="col-sm-6 col-md-4">
+							<input type="text" name="libelle" value="${jouet.libelle}"
+								id="libelle" class="form-control" required />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 col-md-5 control-label">Nombre d'années :</label>
+						<div class="col-sm-6 col-md-4">
+							<input type="text" name="libelle" value="${jouet.libelle}"
+								id="libelle" class="form-control" required />
+						</div>
+					</div>
+
+					<!-- Boutons Ajouter/Reset -->
 					<div class="form-group">
 						<div class="col-sm-6 col-sm-offset-4 col-md-4 col-md-offset-5">
-							<button type="submit" name="supprimerJouet"
+							<button type="submit" name="afficher"
 								class="btn btn-default btn-primary">
-								Supprimer <span class="glyphicon glyphicon-remove"></span>
+								Afficher
 							</button>
 						</div>
 					</div>
@@ -110,21 +89,20 @@
 							<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"></div>
 							<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
 								<ul class="nav nav-pills nav-stacked">
-									<li class="active"><a href="afficherJouets.htm">Lister</a></li>
+									<li ><a href="afficherJouets.htm">Lister</a></li>
 									<hr>
 									<li><a href="ajouterJouet.htm">Ajouter</a></li>
 								</ul>
 							</div>
 						</div></li>
 					<hr>
-					<li role="presentation"><a
+					<li class="active" role="presentation"><a
 						href="listerCatalogues.htm">Catalogues</a></li>
 					<hr>
 					<li role="presentation"><a
 						href="afficherDictionnaire.htm">Dictionnaires</a></li>
 				</ul>
 			</div>
-		</div>
 
 		<!--         <footer class="row"> -->
 		<!--         <div class="col-sm-12"> -->
