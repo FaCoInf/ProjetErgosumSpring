@@ -1,5 +1,7 @@
 package com.epul.ergosum.controller;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
@@ -36,165 +39,124 @@ public class MultiController extends MultiActionController {
 	@Autowired
 	protected JouetDAO jouetDAO;
 
-	// / Affichage de la page d'accueil
-	// /
-	@RequestMapping(value = "index.htm")
-	public ModelAndView Afficheindex(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		return new ModelAndView("index");
+	/**
+	 * 
+	 *  Affichage de la page d'accueil
+	 */
+	@RequestMapping(value = "index.htm", method = RequestMethod.GET)
+	public String home(Locale locale, Model model) {		
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
+				DateFormat.LONG, locale);
+		String formattedDate = dateFormat.format(date);
+		model.addAttribute("serverTime", formattedDate);
+		return "/index";
 	}
 
-	// /
-	// / D�marrage de l'application
-	// /
-	@RequestMapping(value = "/index")
-	public String index(Locale locale, Model model) {
-		return "index";
-	}
-
-	// @RequestMapping(value = "Accueil.htm", method = RequestMethod.GET)
-	// public String home(Locale locale, Model model) {
-	// logger.info("Welcome home! The client locale is {}.", locale);
-	//
-	// Date date = new Date();
-	// DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
-	// DateFormat.LONG, locale);
-	// String formattedDate = dateFormat.format(date);
-	// model.addAttribute("serverTime", formattedDate);
-	// return "/Accueil";
-	// }
-	
-	 /**
+	/**
 	 * Affichage de tous les jouets
 	 */
-	 @RequestMapping(value = "afficherJouets.htm")
-	 public ModelAndView afficherLesJouets(HttpServletRequest request,
-	 HttpServletResponse response) throws Exception {
-	
-	 String destinationPage = "";
-	 try {
-		 
-				int categorieCode;
-				int trancheCode;
-				String categorie = request.getParameter("codecateg");
-				String tranche = request.getParameter("codetranche");
-				if(categorie == null && tranche == null) {
-					categorieCode = 0;
-					trancheCode = 0;
-				} else {
-					categorieCode = Integer.parseInt(categorie);
-					trancheCode = Integer.parseInt(tranche);
-				}
-		 
-				 List<Jouet> jouets = jouetDAO.getAllJouet(); // en fonction code & tranche
-		 request.setAttribute("mesJouets",jouets);
+	@RequestMapping(value = "afficherJouets.htm")
+	public ModelAndView afficherLesJouets(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 
-//		request.setAttribute("categories", unService.listerToutesLesCategories());
-//		request.setAttribute("tranches", unService.listerToutesLesTranches());
-		
+		String destinationPage = "";
+		try {
+
+			int categorieCode;
+			int trancheCode;
+			String categorie = request.getParameter("codecateg");
+			String tranche = request.getParameter("codetranche");
+			if (categorie == null && tranche == null) {
+				categorieCode = 0;
+				trancheCode = 0;
+			} else {
+				categorieCode = Integer.parseInt(categorie);
+				trancheCode = Integer.parseInt(tranche);
+			}
+
+			List<Jouet> jouets = jouetDAO.getAllJouet(); // get en fonction code &
+															// tranche
+			request.setAttribute("mesJouets", jouets);
+
+			// request.setAttribute("categories",
+			// unService.listerToutesLesCategories());
+			// request.setAttribute("tranches",
+			// unService.listerToutesLesTranches());
+
 			return new ModelAndView("ListerJouets");
-	 }catch (MappingException e) {
-	 request.setAttribute("MesErreurs", e.getMessage());
-	 }
-	 destinationPage = "/ListerJouets";
-	
-	 return new ModelAndView(destinationPage);
-	 }
+		} catch (MappingException e) {
+			request.setAttribute("MesErreurs", e.getMessage());
+		}
+		destinationPage = "/ListerJouets";
 
-	// /**
-	// * Ajout d'un jouet
-	// */
-	// @RequestMapping(value = "ajouterJouet.htm")
-	// public ModelAndView ajoutJouet(HttpServletRequest request,
-	// HttpServletResponse response) throws Exception {
-	//
-	// String destinationPage = "";
-	//
-	// try {
-	// GestionErgosum unService = new GestionErgosum();
-	//
-	// if (unService != null) {
-	// // on passe les num�ros de client et de vendeur
-	// request.setAttribute("jouet", new Jouet());
-	// request.setAttribute("categories",
-	// unService.listerToutesLesCategories());
-	// request.setAttribute("tranches",
-	// unService.listerToutesLesTranches());
-	// request.setAttribute("catalogues",
-	// unService.listerTousLesCatalogues());
-	//
-	// destinationPage = "/AjouterJouet";
-	// }
-	// } catch (MonException e) {
-	// request.setAttribute("MesErreurs", e.getMessage());
-	// }
-	//
-	// return new ModelAndView(destinationPage);
-	// }
-	//
-	// /**
-	// * S�lection d'une ann�e par cat�gorie
-	// */
-	// @RequestMapping(value = "selectionnerAnnee.htm")
-	// public ModelAndView selectionAnnee(HttpServletRequest request,
-	// HttpServletResponse response) throws Exception {
-	//
-	// String destinationPage = "";
-	// destinationPage = "/selectionAnneeCat";
-	// return new ModelAndView(destinationPage);
-	// }
-	//
-	// /**
-	// * S�lection d'une ann�e Ctagoriet
-	// */
-	// @RequestMapping(value = "listerCatalogue.htm")
-	// public ModelAndView choixCatalogue(HttpServletRequest request,
-	// HttpServletResponse response) throws Exception {
-	//
-	// String destinationPage = "/Erreur";
-	// try {
-	// GestionErgosum unService = new GestionErgosum();
-	//
-	// if (unService != null)
-	// request.setAttribute("catalogues",
-	// unService.listerTousLesCatalogues());
-	// destinationPage = "/ChoixCatalogue";
-	// } catch (MonException e) {
-	// request.setAttribute("MesErreurs", e.getMessage());
-	// }
-	//
-	// return new ModelAndView(destinationPage);
-	// }
-	//
-	// /**
-	// * Modifier Jouet
-	// */
-	// @RequestMapping(value = "modifierJouet.htm")
-	// public ModelAndView modifierJouet(HttpServletRequest request,
-	// HttpServletResponse response) throws Exception {
-	//
-	// String destinationPage = "Erreur";
-	// try {
-	// String id = request.getParameter("id");
-	// GestionErgosum unService = new GestionErgosum();
-	//
-	// if (unService != null) {
-	// Jouet unJouet = unService.rechercherJouet(id);
-	// request.setAttribute("jouet", unJouet);
-	// request.setAttribute("categories",
-	// unService.listerToutesLesCategories());
-	// request.setAttribute("tranches",
-	// unService.listerToutesLesTranches());
-	// destinationPage = "/ModifierJouet";
-	// }
-	//
-	// } catch (MonException e) {
-	// request.setAttribute("MesErreurs", e.getMessage());
-	// }
-	//
-	// return new ModelAndView(destinationPage);
-	// }
-	//
+		return new ModelAndView(destinationPage);
+	}
+
+	/**
+	 * Ajout d'un jouet
+	 */
+	@RequestMapping(value = "ajouterJouet.htm")
+	public ModelAndView ajoutJouet(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		String destinationPage = "";
+
+		try {
+			request.setAttribute("title", "Ajouter un jouet");
+			request.setAttribute("textButton", "Ajouter");
+			// GestionErgosum unService = new GestionErgosum();
+			
+			// if (unService != null) {
+			// // on passe les num�ros de client et de vendeur
+			// request.setAttribute("jouet", new Jouet());
+			// request.setAttribute("categories",
+			// unService.listerToutesLesCategories());
+			// request.setAttribute("tranches",
+			// unService.listerToutesLesTranches());
+			// request.setAttribute("catalogues",
+			// unService.listerTousLesCatalogues());
+
+			destinationPage = "/SaisieJouet";
+			// }
+		} catch (MappingException e) {
+			request.setAttribute("MesErreurs", e.getMessage());
+		}
+
+		return new ModelAndView(destinationPage);
+	}
+
+	/**
+	 * Modifier Jouet
+	 */
+	@RequestMapping(value = "modifierJouet.htm")
+	public ModelAndView modifierJouet(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		String destinationPage = "Erreur";
+		try {
+			String id = request.getParameter("id");
+			request.setAttribute("title", "Modifier un jouet");
+			request.setAttribute("textButton", "Modifier");
+			// GestionErgosum unService = new GestionErgosum();
+			//
+			// if (unService != null) {
+			// Jouet unJouet = unService.rechercherJouet(id);
+			// request.setAttribute("jouet", unJouet);
+			// request.setAttribute("categories",
+			// unService.listerToutesLesCategories());
+			// request.setAttribute("tranches",
+			// unService.listerToutesLesTranches());
+			destinationPage = "/SaisieJouet";
+			// }
+
+		} catch (MappingException e) {
+			request.setAttribute("MesErreurs", e.getMessage());
+		}
+
+		return new ModelAndView(destinationPage);
+	}
+
 	// /**
 	// * Sauver jouet
 	// */
@@ -271,16 +233,16 @@ public class MultiController extends MultiActionController {
 	// return new ModelAndView(destinationPage);
 	// }
 	//
-	// /**
-	// * effacer jouet
-	// */
-	// @RequestMapping(value = "effacerJouet.htm")
-	// public ModelAndView effacerJouet(HttpServletRequest request,
-	// HttpServletResponse response) throws Exception {
-	//
-	// String destinationPage = "";
-	// try {
-	// String id = request.getParameter("id");
+	 /**
+	 * effacer jouet
+	 */
+	 @RequestMapping(value = "effacerJouet.htm")
+	 public ModelAndView effacerJouet(HttpServletRequest request,
+	 HttpServletResponse response) throws Exception {
+	
+	 String destinationPage = "";
+	 try {
+	 String id = request.getParameter("id");
 	// GestionErgosum unService = new GestionErgosum();
 	//
 	// if (unService != null) {
@@ -294,76 +256,107 @@ public class MultiController extends MultiActionController {
 	// // preparation de la liste
 	// request.setAttribute("mesJouets",
 	// unService.listerTousLesJouets());
-	// }
+	 }
+	
+	 catch (MappingException e) {
+	 request.setAttribute("MesErreurs", e.getMessage());
+	 }
+	
+	 destinationPage = "/ListerJouets";
+	 return new ModelAndView(destinationPage);
+	 }
+	
+
+//	 /**
+//	 * Sélection d'une année par catégorie
+//	 */
+//	 @RequestMapping(value = "selectionnerAnnee.htm")
+//	 public ModelAndView selectionAnnee(HttpServletRequest request,
+//	 HttpServletResponse response) throws Exception {
+//	
+//	 String destinationPage = "";
+//	 destinationPage = "/selectCionAnneeCat";
+//	 return new ModelAndView(destinationPage);
+//	 }
+	
+	 /**
+	 * Sélection d'une année Ctagoriet
+	 */
+	 @RequestMapping(value = "listerCatalogues.htm")
+	 public ModelAndView choixCatalogue(HttpServletRequest request,
+	 HttpServletResponse response) throws Exception {
+	
+	 String destinationPage = "/Erreur";
+	 try {
+	// GestionErgosum unService = new GestionErgosum();
 	//
-	// catch (MonException e) {
-	// request.setAttribute("MesErreurs", e.getMessage());
-	// }
-	//
-	// destinationPage = "/ListeJouets";
-	// }
-	// } catch (Exception e) {
-	// request.setAttribute("MesErreurs", e.getMessage());
-	// }
-	// return new ModelAndView(destinationPage);
-	// }
-	//
-	// /**
-	// * afficher Catalogue
-	// */
-	// @RequestMapping(value = "afficherCatalogues.htm")
-	// public ModelAndView afficherCatalogue(HttpServletRequest request,
-	// HttpServletResponse response) throws Exception {
-	//
-	// String destinationPage = "/Erreur";
-	// try {
-	// String id = request.getParameter("id");
+	// if (unService != null)
+	// request.setAttribute("catalogues",
+	// unService.listerTousLesCatalogues());
+	 destinationPage = "/ChoixCatalogue";
+	 } catch (MappingException e) {
+	 request.setAttribute("MesErreurs", e.getMessage());
+	 }
+	
+	 return new ModelAndView(destinationPage);
+	 }
+
+	 /**
+	 * afficher Catalogue
+	 */
+	 @RequestMapping(value = "afficherCatalogues.htm")
+	 public ModelAndView afficherCatalogue(HttpServletRequest request,
+	 HttpServletResponse response) throws Exception {
+	
+	 String destinationPage = "/Erreur";
+	 try {
+	 String id = request.getParameter("id");
 	// GestionErgosum unService = new GestionErgosum();
 	//
 	// if (unService != null) {
-	// // preparation de la liste
-	// request.setAttribute("mesCataloguesQuantites", unService
+	 // preparation de la liste
+//	 request.setAttribute("mesCataloguesQuantites", unService
 	// .listerCatalogueQuantites(Integer.parseInt(request
 	// .getParameter("anneeDebut")), Integer
 	// .parseInt(request.getParameter("nbAnnees"))));
-	// destinationPage = "/AfficherCatalogues";
+	 destinationPage = "/ListerCatalogues";
 	// }
-	// }
-	//
-	// catch (MonException e) {
-	// request.setAttribute("MesErreurs", e.getMessage());
-	// }
-	//
-	// return new ModelAndView(destinationPage);
-	// }
-	//
-	// /**
-	// * afficher le Dictionnaire
-	// */
-	// @RequestMapping(value = "afficherDictionnaire.htm")
-	// public ModelAndView afficherDictionnaire(HttpServletRequest request,
-	// HttpServletResponse response) throws Exception {
-	//
-	// String destinationPage = "/Erreur";
-	// try {
-	// String annee = request.getParameter("annee");
-	// GestionErgosum unService = new GestionErgosum();
-	//
+	 }
+	
+	 catch (MappingException e) {
+	 request.setAttribute("MesErreurs", e.getMessage());
+	 }
+	
+	 return new ModelAndView(destinationPage);
+	 }
+	
+	 /**
+	 * afficher le Dictionnaire
+	 */
+	 @RequestMapping(value = "afficherDictionnaire.htm")
+	 public ModelAndView afficherDictionnaire(HttpServletRequest request,
+	 HttpServletResponse response) throws Exception {
+	
+	 String destinationPage = "/Erreur";
+	 try {
+	 String annee = request.getParameter("annee");
+//	 GestionErgosum unService = new GestionErgosum();
+	
 	// if (unService != null) {
 	//
-	// HashMap<Categorie, Integer> hashCatInt = unService
+//	 HashMap<Categorie, Integer> hashCatInt = unService
 	// .rechercherDictionnaire(request.getParameter("annee"));
-	// request.setAttribute("dictionnaire", hashCatInt);
-	// request.setAttribute("anneecatalogue", annee);
-	// destinationPage = "/AfficherDictionnaire";
-	// }
-	// }
-	//
-	// catch (MonException e) {
-	// request.setAttribute("MesErreurs", e.getMessage());
-	// }
-	//
-	// return new ModelAndView(destinationPage);
-	// }
+//	 request.setAttribute("dictionnaire", hashCatInt);
+	 request.setAttribute("anneecatalogue", annee);
+	 destinationPage = "/ListerDictionnaire";
+//	 }
+	 }
+	
+	 catch (MappingException e) {
+	 request.setAttribute("MesErreurs", e.getMessage());
+	 }
+	
+	 return new ModelAndView(destinationPage);
+	 }
 
 }
