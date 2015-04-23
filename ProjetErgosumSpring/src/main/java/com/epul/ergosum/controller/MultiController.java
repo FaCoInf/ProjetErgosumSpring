@@ -137,9 +137,7 @@ public class MultiController extends MultiActionController {
 		String destinationPage = "";
 
 		try {
-			request.setAttribute("title", "Ajouter un jouet");
-			request.setAttribute("textButton", "Ajouter");
-
+			
 			// on passe les num�ros de client et de vendeur
 			request.setAttribute("jouet", new Jouet());
 
@@ -149,7 +147,9 @@ public class MultiController extends MultiActionController {
 					trancheageService.getAllTranchage());
 			request.setAttribute("listCatalogue",
 					catalogueService.getAllCatalogue());
-
+			
+			request.setAttribute("title", "Ajouter un jouet");
+			request.setAttribute("textButton", "Ajouter");
 			request.setAttribute("action", "sauverJouet");
 			request.setAttribute("page", "sauverJouet.htm");
 
@@ -259,12 +259,26 @@ public class MultiController extends MultiActionController {
 			// GestionErgosum unService = new GestionErgosum();
 			//
 			// if (unService != null) {
-			// Jouet unJouet = unService.rechercherJouet(id);
-			// request.setAttribute("jouet", unJouet);
+			 Jouet unJouet = jouetDAO.getJouet(id);
+			 request.setAttribute("jouet", unJouet);
 			// request.setAttribute("categories",
 			// unService.listerToutesLesCategories());
 			// request.setAttribute("tranches",
 			// unService.listerToutesLesTranches());
+			request.setAttribute("listCategorie",
+					categorieService.getAllCategorie());
+			request.setAttribute("listTrancheAge",
+					trancheageService.getAllTranchage());
+			request.setAttribute("listCatalogue",
+					catalogueService.getAllCatalogue());
+			
+			
+			
+			request.setAttribute("title", "Modifier un jouet");
+			request.setAttribute("textButton", "Modifier");
+			request.setAttribute("action", "modifierJouet");
+			request.setAttribute("page", "sauverJouet.htm");
+			
 			destinationPage = "/SaisieJouet";
 			// }
 
