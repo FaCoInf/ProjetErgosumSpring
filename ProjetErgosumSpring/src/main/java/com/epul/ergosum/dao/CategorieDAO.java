@@ -6,6 +6,6 @@ import com.epul.ergosum.model.Categorie;
 
 public interface CategorieDAO {
 	
-	public List<Categorie> getAllCatalog();
+	public List<Categorie> getAllCategorie();
 
 }

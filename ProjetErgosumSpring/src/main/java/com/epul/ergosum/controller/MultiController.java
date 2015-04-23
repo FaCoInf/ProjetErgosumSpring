@@ -114,7 +114,7 @@ public class MultiController extends MultiActionController {
 			request.setAttribute("mesJouets", jouets);
 
 			 request.setAttribute("listCategorie", categorieService.getAllCategorie());
-			 request.setAttribute("listTrancheAge", trancheageService.getAllTrancheage());
+			 request.setAttribute("listTrancheAge", trancheageService.getAllTranchage());
 
 			return new ModelAndView("ListerJouets");
 		} catch (MappingException e) {
@@ -138,12 +138,12 @@ public class MultiController extends MultiActionController {
 			request.setAttribute("title", "Ajouter un jouet");
 			request.setAttribute("textButton", "Ajouter");
 			
-			 // on passe les numéros de client et de vendeur
+			 // on passe les numï¿½ros de client et de vendeur
 			 request.setAttribute("jouet", new Jouet());
 		
 
 			 request.setAttribute("listCategorie", categorieService.getAllCategorie());
-			 request.setAttribute("listTrancheAge", trancheageService.getAllTrancheage());
+			 request.setAttribute("listTrancheAge", trancheageService.getAllTranchage());
 			 request.setAttribute("listCatalogue", catalogueService.getAllCatalogue());
 			
 			destinationPage = "/SaisieJouet";

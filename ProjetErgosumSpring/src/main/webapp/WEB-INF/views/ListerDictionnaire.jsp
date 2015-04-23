@@ -4,15 +4,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<!-- <link href="resources/stylesheets/bootstrap/css/bootstrap.css" -->
+<link href="resources/stylesheets/bootstrap/css/bootstrap.css"
+	rel="stylesheet" />
+<!-- <link href="resources/stylesheets/bootstrap-3.3.4/dist/css/bootstrap.css" -->
 <!-- 	rel="stylesheet" /> -->
-<link href="resources/stylesheets/bootstrap-3.3.4/dist/css/bootstrap.css"
-	rel="stylesheet" />
-<link href="resources/stylesheets/bootstrap_2.3.2/css/bootstrap.css"
-	rel="stylesheet" />
+<!-- <link href="resources/stylesheets/bootstrap_2.3.2/css/bootstrap.css" -->
+<!-- 	rel="stylesheet" /> -->
 <link href="resources/stylesheets/css/style.css" rel="stylesheet">
-<link href="resources/stylesheets/datepicker/css/datepicker.css"
-	rel="stylesheet">
+<!-- <link href="resources/stylesheets/datepicker/css/datepicker.css" -->
+<!-- 	rel="stylesheet"> -->
 <!-- <link href="resources/stylesheets/django-bootstrap3-datetimepicker-2.2.3/bootstrap3_datetime/static/bootstrap3_datetime/css/bootstrap-datetimepicker.min.css" -->
 <!-- 	rel="stylesheet"> -->
 	

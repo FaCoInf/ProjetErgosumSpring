@@ -45,8 +45,8 @@
 					id="id_erreur">
 				<form class="form-horizontal" method="post" action="Controleur"
 					onsubmit="return verif();">
-					<input type="hidden" name="type" value="ajout" id="type" /> <input
-						type="hidden" name="action" value="ajoutJouet" />
+					<input type="hidden" name="type" value="${action}" id="type" /> <input
+						type="hidden" name="action" value="${page}" />
 
 					<!-- input fields -->
 					<div class="form-group">
@@ -79,7 +79,7 @@
 						<div class="col-sm-6 col-md-4">
 							<select name="trancheAge" id="trancheAge">
 								<c:forEach items="${listTrancheAge}" var="item">
-									<option value="${item.codetranche}">${item.agemin}à
+									<option value="${item.codetranche}">${item.agemin} à
 										${item.agemax} ans</option>
 								</c:forEach>
 							</select>

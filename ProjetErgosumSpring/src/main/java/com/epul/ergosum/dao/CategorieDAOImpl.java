@@ -18,7 +18,7 @@ public class CategorieDAOImpl implements CategorieDAO {
 	
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Categorie> getAllCatalog() {
+	public List<Categorie> getAllCategorie() {
 		Session currentSession = this.sessionFactory.openSession();
 		Query query = currentSession.createQuery("from Categorie");
 		List<Categorie> categories = query.list();
