@@ -2,16 +2,13 @@ package com.epul.ergosum.dao;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.epul.ergosum.model.Catalogue;
-import com.epul.ergosum.model.Jouet;
+import com.epul.ergosum.model.Trancheage;
 
-public class CatalogueDAOImpl implements CatalogueDAO {
+public class TrancheageDAOImpl implements TrancheageDAO{
 
 	private SessionFactory sessionFactory;
 
@@ -19,16 +16,18 @@ public class CatalogueDAOImpl implements CatalogueDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
-	@SuppressWarnings("unchecked")
+	
 	@Override
-	public List<Catalogue> getAllCatalogue() {
+	@SuppressWarnings("unchecked")
+	public List<Trancheage> getAllTranchage() {
 
 		Session currentSession = this.sessionFactory.openSession();
-		Query query = currentSession.createQuery("from Catalogue");
+		Query query = currentSession.createQuery("from Trancheage");
 
-		List<Catalogue> Catalogues = query.list();
+		List<Trancheage> trancheages = query.list();
 		currentSession.close();
-		return Catalogues;
+		return trancheages;
 	}
+	
 
 }

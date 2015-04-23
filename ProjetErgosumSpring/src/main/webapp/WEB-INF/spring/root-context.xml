@@ -40,4 +40,17 @@
 	<bean id="jouetDAO" class="com.epul.ergosum.dao.JouetDAOImpl">
 		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
 	</bean>
+
+	<bean id="catalogueDAO" class="com.epul.ergosum.dao.CatalogueDAOImpl">
+		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
+	</bean>
+
+	<bean id="CategorieDAO" class="com.epul.ergosum.dao.CategorieDAOImpl">
+		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
+	</bean>
+
+	<bean id="trancheageDAO" class="com.epul.ergosum.dao.TrancheageDAOImpl">
+		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
+	</bean>
+
 </beans>

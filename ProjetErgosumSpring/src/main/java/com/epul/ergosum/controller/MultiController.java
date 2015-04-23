@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,8 +20,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
+import com.epul.ergosum.dao.CatalogueDAO;
+import com.epul.ergosum.dao.CategorieDAO;
 import com.epul.ergosum.dao.JouetDAO;
+import com.epul.ergosum.dao.TrancheageDAO;
 import com.epul.ergosum.model.Jouet;
+import com.epul.ergosum.service.CatalogueService;
+import com.epul.ergosum.service.CatalogueServiceImpl;
+import com.epul.ergosum.service.CategorieService;
+import com.epul.ergosum.service.CategorieServiceImpl;
+import com.epul.ergosum.service.JouetService;
+import com.epul.ergosum.service.JouetServiceImpl;
+import com.epul.ergosum.service.TrancheageService;
+import com.epul.ergosum.service.TrancheageServiceImpl;
 
 /**
  * Handles requests for the application home page.
@@ -38,7 +50,29 @@ public class MultiController extends MultiActionController {
 
 	@Autowired
 	protected JouetDAO jouetDAO;
+	@Autowired
+	protected CategorieDAO categorieService;
+	@Autowired
+	protected CatalogueDAO catalogueService;
+	@Autowired
+	protected TrancheageDAO trancheageService;
+	
+//	protected JouetService jouetService;
+//	
+//	protected CategorieService categorieService;
+//	
+//	protected CatalogueService catalogueService;
+//	
+//	protected TrancheageService trancheageService;
 
+//	@PostConstruct
+//	public void setServices(){
+//		jouetService = new JouetServiceImpl();
+//		categorieService = new CategorieServiceImpl();
+//		catalogueService = new CatalogueServiceImpl();
+//		trancheageService = new TrancheageServiceImpl();
+//	}
+	
 	/**
 	 * 
 	 *  Affichage de la page d'accueil
@@ -79,10 +113,8 @@ public class MultiController extends MultiActionController {
 															// tranche
 			request.setAttribute("mesJouets", jouets);
 
-			// request.setAttribute("categories",
-			// unService.listerToutesLesCategories());
-			// request.setAttribute("tranches",
-			// unService.listerToutesLesTranches());
+			 request.setAttribute("listCategorie", categorieService.getAllCategorie());
+			 request.setAttribute("listTrancheAge", trancheageService.getAllTrancheage());
 
 			return new ModelAndView("ListerJouets");
 		} catch (MappingException e) {
@@ -105,20 +137,16 @@ public class MultiController extends MultiActionController {
 		try {
 			request.setAttribute("title", "Ajouter un jouet");
 			request.setAttribute("textButton", "Ajouter");
-			// GestionErgosum unService = new GestionErgosum();
 			
-			// if (unService != null) {
-			// // on passe les numï¿½ros de client et de vendeur
-			// request.setAttribute("jouet", new Jouet());
-			// request.setAttribute("categories",
-			// unService.listerToutesLesCategories());
-			// request.setAttribute("tranches",
-			// unService.listerToutesLesTranches());
-			// request.setAttribute("catalogues",
-			// unService.listerTousLesCatalogues());
+			 // on passe les numéros de client et de vendeur
+			 request.setAttribute("jouet", new Jouet());
+		
 
+			 request.setAttribute("listCategorie", categorieService.getAllCategorie());
+			 request.setAttribute("listTrancheAge", trancheageService.getAllTrancheage());
+			 request.setAttribute("listCatalogue", catalogueService.getAllCatalogue());
+			
 			destinationPage = "/SaisieJouet";
-			// }
 		} catch (MappingException e) {
 			request.setAttribute("MesErreurs", e.getMessage());
 		}

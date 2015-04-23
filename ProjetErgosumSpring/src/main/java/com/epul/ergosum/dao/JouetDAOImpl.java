@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.epul.ergosum.model.Jouet;
 
@@ -22,10 +23,10 @@ public class JouetDAOImpl implements JouetDAO {
 
 		Session currentSession = this.sessionFactory.openSession();
 		Query query = currentSession.createQuery("from Jouet");
-		List<Jouet> result = query.list();
+		List<Jouet> jouets = query.list();
 		currentSession.close();
 
-		return result;
+		return jouets;
 	}
 
 	@Override
@@ -40,6 +41,7 @@ public class JouetDAOImpl implements JouetDAO {
 	}
 
 	@Override
+	@Transactional
 	public int addJouet(Jouet jouet) {
 		Session currentSession = this.sessionFactory.openSession();
 		Query query = currentSession.createQuery("insert into Jouet(numero, codecateg, codetranche, libelle)");
@@ -53,12 +55,14 @@ public class JouetDAOImpl implements JouetDAO {
 	}
 
 	@Override
+	@Transactional
 	public int suppressJouet(Jouet jouet) {
 
 		return suppressJouet(jouet.getNumero());
 	}
 
 	@Override
+	@Transactional
 	public int suppressJouet(String id) {
 		Session currentSession = this.sessionFactory.openSession();
 		Query query = currentSession.createQuery("delete Jouet where NUMERO = :identifier");
