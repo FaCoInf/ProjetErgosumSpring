@@ -43,7 +43,7 @@
 				<h2>${title}</h2>
 				<input type="hidden" name="uneErreur" value="${MesErreurs}"
 					id="id_erreur">
-				<form class="form-horizontal" method="post" action="Controleur"
+				<form class="form-horizontal" method="post" action="${page}"
 					onsubmit="return verif();">
 					<input type="hidden" name="type" value="${action}" id="type" /> <input
 						type="hidden" name="action" value="${page}" />
@@ -52,7 +52,7 @@
 					<div class="form-group">
 						<label class="col-sm-4 col-md-5 control-label">Numéro</label>
 						<div class="col-sm-6 col-md-4">
-							<input type="text" name="id" value="${jouet.id}" id="id"
+							<input type="text" name="id" value="${jouet.numero}" id="id"
 								class="form-control" required />
 						</div>
 					</div>
@@ -66,7 +66,7 @@
 					<div class="form-group">
 						<label class="col-sm-4 col-md-5 control-label">Catégorie :</label>
 						<div class="col-sm-6 col-md-4">
-							<select name="categorie" id="categorie">
+							<select name="codecateg" id="codecateg">
 								<c:forEach items="${listCategorie}" var="item">
 									<option value="${item.codecateg}">${item.libcateg}</option>
 								</c:forEach>
@@ -77,7 +77,7 @@
 						<label class="col-sm-4 col-md-5 control-label">Tranche âge
 							:</label>
 						<div class="col-sm-6 col-md-4">
-							<select name="trancheAge" id="trancheAge">
+							<select name="codetranche" id="codetranche">
 								<c:forEach items="${listTrancheAge}" var="item">
 									<option value="${item.codetranche}">${item.agemin} à
 										${item.agemax} ans</option>
@@ -89,12 +89,12 @@
 						<label class="col-sm-4 col-md-5 control-label">Quantité de
 							distribution</label>
 						<div class="col-sm-6 col-md-4">
-							<input type="text" name="quantiteDistribuee"
-								value="${catalogue.quantiteDistribuee}" id="quantiteDistribuee"
+							<input type="text" name="quantiteDistribution"
+								value="${catalogue.quantiteDistribuee}" id="quantiteDistribution"
 								class="form-control" required />
 						</div>
-						<label> dans le catalogue </label> <select name="catalogue"
-							id="catalogue">
+						<label> dans le catalogue </label> <select name="codecatalogue"
+							id="codecatalogue">
 							<c:forEach items="${listCatalogue}" var="item">
 								<option value="${item.annee}">${item.annee}</option>
 							</c:forEach>

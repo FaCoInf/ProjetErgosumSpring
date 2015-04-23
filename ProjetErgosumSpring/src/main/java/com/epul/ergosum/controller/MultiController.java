@@ -56,29 +56,29 @@ public class MultiController extends MultiActionController {
 	protected CatalogueDAO catalogueService;
 	@Autowired
 	protected TrancheageDAO trancheageService;
-	
-//	protected JouetService jouetService;
-//	
-//	protected CategorieService categorieService;
-//	
-//	protected CatalogueService catalogueService;
-//	
-//	protected TrancheageService trancheageService;
 
-//	@PostConstruct
-//	public void setServices(){
-//		jouetService = new JouetServiceImpl();
-//		categorieService = new CategorieServiceImpl();
-//		catalogueService = new CatalogueServiceImpl();
-//		trancheageService = new TrancheageServiceImpl();
-//	}
-	
+	// protected JouetService jouetService;
+	//
+	// protected CategorieService categorieService;
+	//
+	// protected CatalogueService catalogueService;
+	//
+	// protected TrancheageService trancheageService;
+
+	// @PostConstruct
+	// public void setServices(){
+	// jouetService = new JouetServiceImpl();
+	// categorieService = new CategorieServiceImpl();
+	// catalogueService = new CatalogueServiceImpl();
+	// trancheageService = new TrancheageServiceImpl();
+	// }
+
 	/**
 	 * 
-	 *  Affichage de la page d'accueil
+	 * Affichage de la page d'accueil
 	 */
 	@RequestMapping(value = "index.htm", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {		
+	public String home(Locale locale, Model model) {
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
 				DateFormat.LONG, locale);
@@ -109,12 +109,14 @@ public class MultiController extends MultiActionController {
 				trancheCode = Integer.parseInt(tranche);
 			}
 
-			List<Jouet> jouets = jouetDAO.getAllJouet(); // get en fonction code &
+			List<Jouet> jouets = jouetDAO.getAllJouet(); // get en fonction code
+															// &
 															// tranche
 			request.setAttribute("mesJouets", jouets);
-
-			 request.setAttribute("listCategorie", categorieService.getAllCategorie());
-			 request.setAttribute("listTrancheAge", trancheageService.getAllTranchage());
+			request.setAttribute("listCategorie",
+					categorieService.getAllCategorie());
+			request.setAttribute("listTrancheAge",
+					trancheageService.getAllTranchage());
 
 			return new ModelAndView("ListerJouets");
 		} catch (MappingException e) {
@@ -137,17 +139,105 @@ public class MultiController extends MultiActionController {
 		try {
 			request.setAttribute("title", "Ajouter un jouet");
 			request.setAttribute("textButton", "Ajouter");
-			
-			 // on passe les num�ros de client et de vendeur
-			 request.setAttribute("jouet", new Jouet());
-		
 
-			 request.setAttribute("listCategorie", categorieService.getAllCategorie());
-			 request.setAttribute("listTrancheAge", trancheageService.getAllTranchage());
-			 request.setAttribute("listCatalogue", catalogueService.getAllCatalogue());
-			
+			// on passe les num�ros de client et de vendeur
+			request.setAttribute("jouet", new Jouet());
+
+			request.setAttribute("listCategorie",
+					categorieService.getAllCategorie());
+			request.setAttribute("listTrancheAge",
+					trancheageService.getAllTranchage());
+			request.setAttribute("listCatalogue",
+					catalogueService.getAllCatalogue());
+
+			request.setAttribute("action", "sauverJouet");
+			request.setAttribute("page", "sauverJouet.htm");
+
 			destinationPage = "/SaisieJouet";
 		} catch (MappingException e) {
+			request.setAttribute("MesErreurs", e.getMessage());
+		}
+
+		return new ModelAndView(destinationPage);
+	}
+
+	/**
+	 * Sauver jouet
+	 */
+	@RequestMapping(value = "sauverJouet.htm")
+	public ModelAndView sauverJouet(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		String destinationPage = "/Erreur";
+		try {
+			String id = request.getParameter("id");
+//			GestionErgosum unService = new GestionErgosum();
+//			if (unService != null) {
+
+				// fabrication du jouet � partir des param�tres de la requ�te
+				// Si le jouet n'est pas � cr�er, il faut le r�cup�rer de la
+				// session
+				// courante
+				// Ensuite on peut modifier ses champs
+
+				if (request.getParameter("type").equals("sauverJouet")) {
+					unJouet = new Jouet();
+				}else { // on r�cup�re le jouet courant
+
+//					unJouet = unService.rechercherJouet(id);
+				}
+				unJouet.setNumero(request.getParameter("id"));
+				unJouet.setLibelle(request.getParameter("libelle"));
+				System.out.println("codecateg="
+						+ request.getParameter("codecateg"));
+				System.out.println("codetranche="
+						+ request.getParameter("codetranche"));
+//				Categorie uneCateg = unService.rechercherCategorie(request
+//						.getParameter("codecateg"));
+//				unJouet.setCategorie(uneCateg);
+
+//				Trancheage uneTranche = unService.rechercherTrancheage(request
+//						.getParameter("codetranche"));
+//				unJouet.setTrancheage(uneTrCanche);
+
+				// sauvegarde du jouet
+				if (request.getParameter("type").equals("modif")) {
+//					unService.modifier(unJouet);
+				} else {
+
+//					Catalogue leCatalogue = unService
+//							.rechercherCatalogue(request
+//									.getParameter("codecatalogue"));
+					System.out.println("Je suis � la quantit� ");
+					;
+					System.out.println("codecatalogue="
+							+ request.getParameter("codecatalogue"));
+					
+					System.out.println("quantiteDistribution="
+							+ request
+							.getParameter("quantiteDistribution"));
+
+					int quantiteDistribution = Integer.parseInt(request
+							.getParameter("quantiteDistribution"));
+					if (quantiteDistribution > 0) {
+//						leCatalogue
+//								.setQuantiteDistribuee(leCatalogue
+//										.getQuantiteDistribuee()
+//										+ quantiteDistribution);
+//						unService.modifierCatalogue(leCatalogue);
+					}
+//					unService.ajouter(unJouet);
+				}
+				try {
+					request.setAttribute("mesJouets",
+							jouetDAO.getAllJouet());
+					destinationPage = "/ListerJouets";
+				} catch (MappingException e) {
+					request.setAttribute("MesErreurs", e.getMessage());
+				}
+
+//			}
+		} catch (Exception e) {
 			request.setAttribute("MesErreurs", e.getMessage());
 		}
 
@@ -185,206 +275,129 @@ public class MultiController extends MultiActionController {
 		return new ModelAndView(destinationPage);
 	}
 
-	// /**
-	// * Sauver jouet
-	// */
-	// @RequestMapping(value = "sauverJouet.htm")
-	// public ModelAndView sauverJouet(HttpServletRequest request,
-	// HttpServletResponse response) throws Exception {
-	//
-	// String destinationPage = "/Erreur";
-	// try {
-	// String id = request.getParameter("id");
-	// GestionErgosum unService = new GestionErgosum();
-	// if (unService != null) {
-	//
-	// // fabrication du jouet � partir des param�tres de la requ�te
-	// // Si le jouet n'est pas � cr�er, il faut le r�cup�rer de la
-	// // session
-	// // courante
-	// // Ensuite on peut modifier ses champs
-	//
-	// if (request.getParameter("type").equals("ajout"))
-	// unJouet = new Jouet();
-	// else { // on r�cup�re le jouet courant
-	//
-	// unJouet = unService.rechercherJouet(id);
-	// }
-	// unJouet.setNumero(request.getParameter("id"));
-	// unJouet.setLibelle(request.getParameter("libelle"));
-	// System.out.println("codecateg="
-	// + request.getParameter("codecateg"));
-	// System.out.println("codetranche="
-	// + request.getParameter("codetranche"));
-	// Categorie uneCateg = unService.rechercherCategorie(request
-	// .getParameter("codecateg"));
-	// unJouet.setCategorie(uneCateg);
-	//
-	// Trancheage uneTranche = unService.rechercherTrancheage(request
-	// .getParameter("codetranche"));
-	// unJouet.setTrancheage(uneTranche);
-	//
-	// // sauvegarde du jouet
-	// if (request.getParameter("type").equals("modif")) {
-	// unService.modifier(unJouet);
-	// } else {
-	//
-	// Catalogue leCatalogue = unService
-	// .rechercherCatalogue(request
-	// .getParameter("codecatalogue"));
-	// System.out.println("Je suis � la quantit� ");
-	// ;
-	// int quantiteDistribution = Integer.parseInt(request
-	// .getParameter("quantiteDistribution"));
-	// if (quantiteDistribution > 0) {
-	// leCatalogue
-	// .setQuantiteDistribuee(leCatalogue
-	// .getQuantiteDistribuee()
-	// + quantiteDistribution);
-	// unService.modifierCatalogue(leCatalogue);
-	// }
-	// unService.ajouter(unJouet);
-	// }
-	// try {
-	// request.setAttribute("mesJouets",
-	// unService.listerTousLesJouets());
-	// destinationPage = "/ListeJouets";
-	// } catch (MonException e) {
-	// request.setAttribute("MesErreurs", e.getMessage());
-	// }
-	//
-	// }
-	// } catch (Exception e) {
-	// request.setAttribute("MesErreurs", e.getMessage());
-	// }
-	//
-	// return new ModelAndView(destinationPage);
-	// }
-	//
-	 /**
+	/**
 	 * effacer jouet
 	 */
-	 @RequestMapping(value = "effacerJouet.htm")
-	 public ModelAndView effacerJouet(HttpServletRequest request,
-	 HttpServletResponse response) throws Exception {
-	
-	 String destinationPage = "";
-	 try {
-	 String id = request.getParameter("id");
-	// GestionErgosum unService = new GestionErgosum();
-	//
-	// if (unService != null) {
-	// // recuperation de la liste des id a effacer
-	// String[] ids = request.getParameterValues("id");
-	// // effacement de la liste des id
-	// try {
-	// if (ids != null) {
-	// unService.effacer(ids);
-	// }
-	// // preparation de la liste
-	// request.setAttribute("mesJouets",
-	// unService.listerTousLesJouets());
-	 }
-	
-	 catch (MappingException e) {
-	 request.setAttribute("MesErreurs", e.getMessage());
-	 }
-	
-	 destinationPage = "/ListerJouets";
-	 return new ModelAndView(destinationPage);
-	 }
-	
+	@RequestMapping(value = "effacerJouet.htm")
+	public ModelAndView effacerJouet(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 
-//	 /**
-//	 * Sélection d'une année par catégorie
-//	 */
-//	 @RequestMapping(value = "selectionnerAnnee.htm")
-//	 public ModelAndView selectionAnnee(HttpServletRequest request,
-//	 HttpServletResponse response) throws Exception {
-//	
-//	 String destinationPage = "";
-//	 destinationPage = "/selectCionAnneeCat";
-//	 return new ModelAndView(destinationPage);
-//	 }
-	
-	 /**
+		String destinationPage = "";
+		try {
+			String id = request.getParameter("id");
+			// GestionErgosum unService = new GestionErgosum();
+			//
+			// if (unService != null) {
+			// // recuperation de la liste des id a effacer
+			// String[] ids = request.getParameterValues("id");
+			// // effacement de la liste des id
+			// try {
+			// if (ids != null) {
+			// unService.effacer(ids);
+			// }
+			// // preparation de la liste
+			// request.setAttribute("mesJouets",
+			// unService.listerTousLesJouets());
+		}
+
+		catch (MappingException e) {
+			request.setAttribute("MesErreurs", e.getMessage());
+		}
+
+		destinationPage = "/ListerJouets";
+		return new ModelAndView(destinationPage);
+	}
+
+	// /**
+	// * Sélection d'une année par catégorie
+	// */
+	// @RequestMapping(value = "selectionnerAnnee.htm")
+	// public ModelAndView selectionAnnee(HttpServletRequest request,
+	// HttpServletResponse response) throws Exception {
+	//
+	// String destinationPage = "";
+	// destinationPage = "/selectCionAnneeCat";
+	// return new ModelAndView(destinationPage);
+	// }
+
+	/**
 	 * Sélection d'une année Ctagoriet
 	 */
-	 @RequestMapping(value = "listerCatalogues.htm")
-	 public ModelAndView choixCatalogue(HttpServletRequest request,
-	 HttpServletResponse response) throws Exception {
-	
-	 String destinationPage = "/Erreur";
-	 try {
-	// GestionErgosum unService = new GestionErgosum();
-	//
-	// if (unService != null)
-	// request.setAttribute("catalogues",
-	// unService.listerTousLesCatalogues());
-	 destinationPage = "/ChoixCatalogue";
-	 } catch (MappingException e) {
-	 request.setAttribute("MesErreurs", e.getMessage());
-	 }
-	
-	 return new ModelAndView(destinationPage);
-	 }
+	@RequestMapping(value = "listerCatalogues.htm")
+	public ModelAndView choixCatalogue(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 
-	 /**
+		String destinationPage = "/Erreur";
+		try {
+			// GestionErgosum unService = new GestionErgosum();
+			//
+			// if (unService != null)
+			// request.setAttribute("catalogues",
+			// unService.listerTousLesCatalogues());
+			destinationPage = "/ChoixCatalogue";
+		} catch (MappingException e) {
+			request.setAttribute("MesErreurs", e.getMessage());
+		}
+
+		return new ModelAndView(destinationPage);
+	}
+
+	/**
 	 * afficher Catalogue
 	 */
-	 @RequestMapping(value = "afficherCatalogues.htm")
-	 public ModelAndView afficherCatalogue(HttpServletRequest request,
-	 HttpServletResponse response) throws Exception {
-	
-	 String destinationPage = "/Erreur";
-	 try {
-	 String id = request.getParameter("id");
-	// GestionErgosum unService = new GestionErgosum();
-	//
-	// if (unService != null) {
-	 // preparation de la liste
-//	 request.setAttribute("mesCataloguesQuantites", unService
-	// .listerCatalogueQuantites(Integer.parseInt(request
-	// .getParameter("anneeDebut")), Integer
-	// .parseInt(request.getParameter("nbAnnees"))));
-	 destinationPage = "/ListerCatalogues";
-	// }
-	 }
-	
-	 catch (MappingException e) {
-	 request.setAttribute("MesErreurs", e.getMessage());
-	 }
-	
-	 return new ModelAndView(destinationPage);
-	 }
-	
-	 /**
+	@RequestMapping(value = "afficherCatalogues.htm")
+	public ModelAndView afficherCatalogue(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		String destinationPage = "/Erreur";
+		try {
+			String id = request.getParameter("id");
+			// GestionErgosum unService = new GestionErgosum();
+			//
+			// if (unService != null) {
+			// preparation de la liste
+			// request.setAttribute("mesCataloguesQuantites", unService
+			// .listerCatalogueQuantites(Integer.parseInt(request
+			// .getParameter("anneeDebut")), Integer
+			// .parseInt(request.getParameter("nbAnnees"))));
+			destinationPage = "/ListerCatalogues";
+			// }
+		}
+
+		catch (MappingException e) {
+			request.setAttribute("MesErreurs", e.getMessage());
+		}
+
+		return new ModelAndView(destinationPage);
+	}
+
+	/**
 	 * afficher le Dictionnaire
 	 */
-	 @RequestMapping(value = "afficherDictionnaire.htm")
-	 public ModelAndView afficherDictionnaire(HttpServletRequest request,
-	 HttpServletResponse response) throws Exception {
-	
-	 String destinationPage = "/Erreur";
-	 try {
-	 String annee = request.getParameter("annee");
-//	 GestionErgosum unService = new GestionErgosum();
-	
-	// if (unService != null) {
-	//
-//	 HashMap<Categorie, Integer> hashCatInt = unService
-	// .rechercherDictionnaire(request.getParameter("annee"));
-//	 request.setAttribute("dictionnaire", hashCatInt);
-	 request.setAttribute("anneecatalogue", annee);
-	 destinationPage = "/ListerDictionnaire";
-//	 }
-	 }
-	
-	 catch (MappingException e) {
-	 request.setAttribute("MesErreurs", e.getMessage());
-	 }
-	
-	 return new ModelAndView(destinationPage);
-	 }
+	@RequestMapping(value = "afficherDictionnaire.htm")
+	public ModelAndView afficherDictionnaire(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		String destinationPage = "/Erreur";
+		try {
+			String annee = request.getParameter("annee");
+			// GestionErgosum unService = new GestionErgosum();
+
+			// if (unService != null) {
+			//
+			// HashMap<Categorie, Integer> hashCatInt = unService
+			// .rechercherDictionnaire(request.getParameter("annee"));
+			// request.setAttribute("dictionnaire", hashCatInt);
+			request.setAttribute("anneecatalogue", annee);
+			destinationPage = "/ListerDictionnaire";
+			// }
+		}
+
+		catch (MappingException e) {
+			request.setAttribute("MesErreurs", e.getMessage());
+		}
+
+		return new ModelAndView(destinationPage);
+	}
 
 }
