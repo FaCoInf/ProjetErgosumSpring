@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import com.epul.ergosum.model.Categorie;
 import com.epul.ergosum.model.Trancheage;
 
 public class TrancheageDAOImpl implements TrancheageDAO{
@@ -28,6 +29,18 @@ public class TrancheageDAOImpl implements TrancheageDAO{
 		currentSession.close();
 		return trancheages;
 	}
+	
+	@Override
+	public Trancheage getTrancheage(String id) {
+
+		Session currentSession = this.sessionFactory.openSession();
+		Query query = currentSession.createQuery("from Trancheage where CODETRANCHE = :identifier ").setParameter("identifier", id);
+		Trancheage result = (Trancheage) query.uniqueResult();
+		currentSession.close();
+
+		return result;
+	}
+	
 	
 
 }

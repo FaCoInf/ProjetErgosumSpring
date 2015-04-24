@@ -27,5 +27,16 @@ public class CategorieDAOImpl implements CategorieDAO {
 		return categories;
 	}
 	
+	@Override
+	public Categorie getCategorie(String id) {
+
+		Session currentSession = this.sessionFactory.openSession();
+		Query query = currentSession.createQuery("from Categorie where CODECATEG = :identifier ").setParameter("identifier", id);
+		Categorie result = (Categorie) query.uniqueResult();
+		currentSession.close();
+
+		return result;
+	}
+	
 
 }

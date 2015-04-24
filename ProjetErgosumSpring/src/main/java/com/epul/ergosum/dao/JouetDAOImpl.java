@@ -42,6 +42,7 @@ public class JouetDAOImpl implements JouetDAO {
 
 	@Override
 	@Transactional
+	//TODO ajouter au catalogue la quantité du jouet ajouté
 	public int addJouet(Jouet jouet) {
 		Session currentSession = this.sessionFactory.openSession();
 		Query query = currentSession.createQuery("insert into Jouet(numero, codecateg, codetranche, libelle)");
@@ -55,6 +56,12 @@ public class JouetDAOImpl implements JouetDAO {
 	}
 
 	@Override
+	public int modifyJouet(Jouet jouet){
+		suppressJouet(jouet);
+		return addJouet(jouet);
+	}
+	
+	@Override
 	@Transactional
 	public int suppressJouet(Jouet jouet) {
 
@@ -63,6 +70,7 @@ public class JouetDAOImpl implements JouetDAO {
 
 	@Override
 	@Transactional
+	//TODO soustraire dans catalogue la quantité du joeut associé
 	public int suppressJouet(String id) {
 		Session currentSession = this.sessionFactory.openSession();
 		Query query = currentSession.createQuery("delete Jouet where NUMERO = :identifier");

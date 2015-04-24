@@ -8,4 +8,5 @@ public interface CategorieDAO {
 	
 	public List<Categorie> getAllCategorie();
 
+	public Categorie getCategorie(String id);
 }

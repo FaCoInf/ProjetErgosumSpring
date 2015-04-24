@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -24,15 +23,10 @@ import com.epul.ergosum.dao.CatalogueDAO;
 import com.epul.ergosum.dao.CategorieDAO;
 import com.epul.ergosum.dao.JouetDAO;
 import com.epul.ergosum.dao.TrancheageDAO;
+import com.epul.ergosum.model.Catalogue;
+import com.epul.ergosum.model.Categorie;
 import com.epul.ergosum.model.Jouet;
-import com.epul.ergosum.service.CatalogueService;
-import com.epul.ergosum.service.CatalogueServiceImpl;
-import com.epul.ergosum.service.CategorieService;
-import com.epul.ergosum.service.CategorieServiceImpl;
-import com.epul.ergosum.service.JouetService;
-import com.epul.ergosum.service.JouetServiceImpl;
-import com.epul.ergosum.service.TrancheageService;
-import com.epul.ergosum.service.TrancheageServiceImpl;
+import com.epul.ergosum.model.Trancheage;
 
 /**
  * Handles requests for the application home page.
@@ -137,7 +131,7 @@ public class MultiController extends MultiActionController {
 		String destinationPage = "";
 
 		try {
-			
+
 			// on passe les num�ros de client et de vendeur
 			request.setAttribute("jouet", new Jouet());
 
@@ -147,7 +141,7 @@ public class MultiController extends MultiActionController {
 					trancheageService.getAllTranchage());
 			request.setAttribute("listCatalogue",
 					catalogueService.getAllCatalogue());
-			
+
 			request.setAttribute("title", "Ajouter un jouet");
 			request.setAttribute("textButton", "Ajouter");
 			request.setAttribute("action", "sauverJouet");
@@ -171,72 +165,67 @@ public class MultiController extends MultiActionController {
 		String destinationPage = "/Erreur";
 		try {
 			String id = request.getParameter("id");
-//			GestionErgosum unService = new GestionErgosum();
-//			if (unService != null) {
+			// GestionErgosum unService = new GestionErgosum();
+			// if (unService != null) {
 
-				// fabrication du jouet � partir des param�tres de la requ�te
-				// Si le jouet n'est pas � cr�er, il faut le r�cup�rer de la
-				// session
-				// courante
-				// Ensuite on peut modifier ses champs
+			// fabrication du jouet � partir des param�tres de la requ�te
+			// Si le jouet n'est pas � cr�er, il faut le r�cup�rer de la
+			// session
+			// courante
+			// Ensuite on peut modifier ses champs
 
-				if (request.getParameter("type").equals("sauverJouet")) {
-					unJouet = new Jouet();
-				}else { // on r�cup�re le jouet courant
+			if (request.getParameter("type").equals("sauverJouet")) {
+				unJouet = new Jouet();
+			} else { // on r�cup�re le jouet courant
 
-//					unJouet = unService.rechercherJouet(id);
+				// unJouet = unService.rechercherJouet(id);
+			}
+			unJouet.setNumero(request.getParameter("id"));
+			unJouet.setLibelle(request.getParameter("libelle"));
+			System.out
+					.println("codecateg=" + request.getParameter("codecateg"));
+			System.out.println("codetranche="
+					+ request.getParameter("codetranche"));
+			Categorie uneCateg = categorieService.getCategorie(request
+					.getParameter("codecateg"));
+			unJouet.setCategorie(uneCateg);
+
+			Trancheage uneTranche = trancheageService.getTrancheage(request
+					.getParameter("codetranche"));
+			unJouet.setTrancheage(uneTranche);
+
+			// sauvegarde du jouet
+			if (request.getParameter("type").equals("modif")) {
+				 jouetDAO.modifyJouet(unJouet);
+			} else {
+
+				Catalogue leCatalogue = catalogueService.getCatalogue(Integer
+						.parseInt(request.getParameter("codecatalogue")));
+				System.out.println("Je suis � la quantit� ");
+				;
+				System.out.println("codecatalogue="
+						+ request.getParameter("codecatalogue"));
+
+				System.out.println("quantiteDistribution="
+						+ request.getParameter("quantiteDistribution"));
+
+				int quantiteDistribution = Integer.parseInt(request
+						.getParameter("quantiteDistribution"));
+				if (quantiteDistribution > 0) {
+					leCatalogue.setQuantiteDistribuee(leCatalogue
+							.getQuantiteDistribuee() + quantiteDistribution);
+				catalogueService.modifyCatalogue(leCatalogue);
 				}
-				unJouet.setNumero(request.getParameter("id"));
-				unJouet.setLibelle(request.getParameter("libelle"));
-				System.out.println("codecateg="
-						+ request.getParameter("codecateg"));
-				System.out.println("codetranche="
-						+ request.getParameter("codetranche"));
-//				Categorie uneCateg = unService.rechercherCategorie(request
-//						.getParameter("codecateg"));
-//				unJouet.setCategorie(uneCateg);
+				 jouetDAO.addJouet(unJouet);
+			}
+			try {
+				request.setAttribute("mesJouets", jouetDAO.getAllJouet());
+				destinationPage = "/ListerJouets";
+			} catch (MappingException e) {
+				request.setAttribute("MesErreurs", e.getMessage());
+			}
 
-//				Trancheage uneTranche = unService.rechercherTrancheage(request
-//						.getParameter("codetranche"));
-//				unJouet.setTrancheage(uneTrCanche);
-
-				// sauvegarde du jouet
-				if (request.getParameter("type").equals("modif")) {
-//					unService.modifier(unJouet);
-				} else {
-
-//					Catalogue leCatalogue = unService
-//							.rechercherCatalogue(request
-//									.getParameter("codecatalogue"));
-					System.out.println("Je suis � la quantit� ");
-					;
-					System.out.println("codecatalogue="
-							+ request.getParameter("codecatalogue"));
-					
-					System.out.println("quantiteDistribution="
-							+ request
-							.getParameter("quantiteDistribution"));
-
-					int quantiteDistribution = Integer.parseInt(request
-							.getParameter("quantiteDistribution"));
-					if (quantiteDistribution > 0) {
-//						leCatalogue
-//								.setQuantiteDistribuee(leCatalogue
-//										.getQuantiteDistribuee()
-//										+ quantiteDistribution);
-//						unService.modifierCatalogue(leCatalogue);
-					}
-//					unService.ajouter(unJouet);
-				}
-				try {
-					request.setAttribute("mesJouets",
-							jouetDAO.getAllJouet());
-					destinationPage = "/ListerJouets";
-				} catch (MappingException e) {
-					request.setAttribute("MesErreurs", e.getMessage());
-				}
-
-//			}
+			// }
 		} catch (Exception e) {
 			request.setAttribute("MesErreurs", e.getMessage());
 		}
@@ -259,8 +248,8 @@ public class MultiController extends MultiActionController {
 			// GestionErgosum unService = new GestionErgosum();
 			//
 			// if (unService != null) {
-			 Jouet unJouet = jouetDAO.getJouet(id);
-			 request.setAttribute("jouet", unJouet);
+			Jouet unJouet = jouetDAO.getJouet(id);
+			request.setAttribute("jouet", unJouet);
 			// request.setAttribute("categories",
 			// unService.listerToutesLesCategories());
 			// request.setAttribute("tranches",
@@ -271,14 +260,12 @@ public class MultiController extends MultiActionController {
 					trancheageService.getAllTranchage());
 			request.setAttribute("listCatalogue",
 					catalogueService.getAllCatalogue());
-			
-			
-			
+
 			request.setAttribute("title", "Modifier un jouet");
 			request.setAttribute("textButton", "Modifier");
 			request.setAttribute("action", "modifierJouet");
 			request.setAttribute("page", "sauverJouet.htm");
-			
+
 			destinationPage = "/SaisieJouet";
 			// }
 

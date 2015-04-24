@@ -3,7 +3,6 @@ package com.epul.ergosum.dao;
 import java.util.List;
 
 import com.epul.ergosum.model.Catalogue;
-import com.epul.ergosum.model.Jouet;
 
 /**
  * Accès aux données de catalogue
@@ -18,5 +17,9 @@ public interface CatalogueDAO {
 	 */
 	public List<Catalogue> getAllCatalogue();
 	
+	public Catalogue getCatalogue(int id);
 	
+	public int addCatalogue(Catalogue catalogue);
+	
+public int modifyCatalogue(Catalogue catalogue);
 }

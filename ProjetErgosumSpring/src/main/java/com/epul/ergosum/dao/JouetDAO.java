@@ -30,6 +30,8 @@ public interface JouetDAO {
 	 * @return int
 	 */
 	public int addJouet(Jouet jouet);
+	
+	public int modifyJouet(Jouet jouet);
 
 	/**
 	 * supprime un jouet
@@ -44,4 +46,5 @@ public interface JouetDAO {
 	 * @return int
 	 */
 	public int suppressJouet(String id);
+	
 }
