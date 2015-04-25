@@ -10,6 +10,23 @@
 <link href="resources/stylesheets/css/style.css" rel="stylesheet">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Ergosum</title>
+
+<script src="resources/stylesheets/jquery-2.1.3.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		
+		// Selection des listes déroulantes
+		var codetranche = "<c:out value='${jouet.trancheage.codetranche}' />";
+		var codecateg = "<c:out value='${jouet.categorie.codecateg}' />";
+		
+		if(codetranche == "") codetranche = "1";
+		if(codecateg == "") codecateg = "1";
+		
+		$('#codetranche').val(codetranche);
+		$('#codecateg').val( codecateg);
+	});
+</script>
+
 </head>
 <body>
 	<!-- Conteneur principal -->
@@ -79,7 +96,7 @@
 						<div class="col-sm-6 col-md-4">
 							<select name="codetranche" id="codetranche">
 								<c:forEach items="${listTrancheAge}" var="item">
-									<option value="${item.codetranche}">${item.agemin} à
+									<option value="${item.codetranche}">${item.agemin}à
 										${item.agemax} ans</option>
 								</c:forEach>
 							</select>
@@ -90,8 +107,8 @@
 							distribution</label>
 						<div class="col-sm-6 col-md-4">
 							<input type="text" name="quantiteDistribution"
-								value="${catalogue.quantiteDistribuee}" id="quantiteDistribution"
-								class="form-control" required />
+								value="${catalogue.quantiteDistribuee}"
+								id="quantiteDistribution" class="form-control" required />
 						</div>
 						<label> dans le catalogue </label> <select name="codecatalogue"
 							id="codecatalogue">
@@ -105,9 +122,7 @@
 					<div class="form-group">
 						<div class="col-sm-6 col-sm-offset-4 col-md-4 col-md-offset-5">
 							<button type="submit" name="ajouter"
-								class="btn btn-default btn-primary">
-								${textButton}
-							</button>
+								class="btn btn-default btn-primary">${textButton}</button>
 							<button type="reset" name="reset"
 								class="btn btn-default btn-primary">Reset</button>
 						</div>
@@ -125,18 +140,16 @@
 							<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"></div>
 							<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
 								<ul class="nav nav-pills nav-stacked">
-									<li ><a href="afficherJouets.htm">Lister</a></li>
+									<li><a href="afficherJouets.htm">Lister</a></li>
 									<hr>
-									<li class="active" ><a href="ajouterJouet.htm">Ajouter</a></li>
+									<li class="active"><a href="ajouterJouet.htm">Ajouter</a></li>
 								</ul>
 							</div>
 						</div></li>
 					<hr>
-					<li role="presentation"><a
-						href="listerCatalogues.htm">Catalogues</a></li>
+					<li role="presentation"><a href="listerCatalogues.htm">Catalogues</a></li>
 					<hr>
-					<li role="presentation"><a
-						href="afficherDictionnaire.htm">Dictionnaires</a></li>
+					<li role="presentation"><a href="afficherDictionnaire.htm">Dictionnaires</a></li>
 				</ul>
 			</div>
 		</div>

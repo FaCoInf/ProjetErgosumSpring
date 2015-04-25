@@ -76,8 +76,8 @@
 						<tbody>
 							<c:forEach items="${mesJouets}" var="item">
 								<tr>
-									<td><input type="checkbox" class="checkbox"
-										id="${item.numero}" aria-label=""></td>
+									<td><input type="checkbox" class="checkbox" name="id"
+										id="checkbox${item.numero}"  value="${item.numero}" aria-label=""></td>
 									<td><a href="modifierJouet.htm?id=${item.numero}">Modifier</a></td>
 									<td>${item.numero}</td>
 									<td>${item.libelle}</td>

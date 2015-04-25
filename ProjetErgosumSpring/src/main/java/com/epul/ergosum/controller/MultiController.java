@@ -104,8 +104,7 @@ public class MultiController extends MultiActionController {
 			}
 
 			List<Jouet> jouets = jouetDAO.getAllJouet(); // get en fonction code
-															// &
-															// tranche
+															// & tranche
 			request.setAttribute("mesJouets", jouets);
 			request.setAttribute("listCategorie",
 					categorieService.getAllCategorie());
@@ -290,7 +289,8 @@ public class MultiController extends MultiActionController {
 			//
 			// if (unService != null) {
 			// // recuperation de la liste des id a effacer
-			// String[] ids = request.getParameterValues("id");
+			 String[] ids = request.getParameterValues("id");
+
 			// // effacement de la liste des id
 			// try {
 			// if (ids != null) {
