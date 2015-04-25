@@ -15,63 +15,90 @@
 <!-- 	rel="stylesheet"> -->
 <!-- <link href="resources/stylesheets/django-bootstrap3-datetimepicker-2.2.3/bootstrap3_datetime/static/bootstrap3_datetime/css/bootstrap-datetimepicker.min.css" -->
 <!-- 	rel="stylesheet"> -->
-	
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script src="resources/stylesheets/jquery-2.1.3.js"></script>
 <script type="text/javascript">
 	function Chargement() {
 		var obj = document.getElementById("id_erreur");
 		if (obj.value != '')
 			alert('Erreur signalée  : "' + obj.value + "'");
 	}
+
+	$(document).ready(function() {
+
+		// Selection des listes déroulantes
+		var anneecatalogue = "<c:out value='${anneecatalogue}' />";
+
+		if (anneecatalogue != "")
+			$('#anneecatalogue').val(anneecatalogue);
+	});
 </script>
 <title>Ergosum</title>
 </head>
 <body>
-<!-- 	Conteneur principal -->
+	<!-- 	Conteneur principal -->
 	<div class="container">
 
-<!-- 	Entete  -->
+		<!-- 	Entete  -->
 		<div class="page-header">
 			<h1>
 				<a href="#">ERGOSUM</a>
 			</h1>
 		</div>
 
-<!-- Barre de navigation -->
+		<!-- Barre de navigation -->
 		<div class="row">
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			<div class="navbar-collapse collapse">
-				<ul class="nav nav-pills nav-justified">
-					<li role="presentation"><a href="index.htm">Accueil</a></li>
-					<li role="presentation"><a href="afficherJouets.htm">Jouets</a></li>
-					<li role="presentation" ><a href="listerCatalogues.htm">Catalogues</a></li>
-					<li role="presentation" class="active"><a
-						href="afficherDictionnaire.htm">Dictionnaires</a></li>
-				</ul>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="navbar-collapse collapse">
+					<ul class="nav nav-pills nav-justified">
+						<li role="presentation"><a href="index.htm">Accueil</a></li>
+						<li role="presentation"><a href="afficherJouets.htm">Jouets</a></li>
+						<li role="presentation"><a href="listerCatalogues.htm">Catalogues</a></li>
+						<li role="presentation" class="active"><a
+							href="afficherDictionnaire.htm">Dictionnaires</a></li>
+					</ul>
+				</div>
+				<br> <br>
 			</div>
-			<br> <br>
-		</div>
 		</div>
 
-<!-- Contenu -->
-		<div class="row">
-		<div id="dpMonths" class="input-append date"
-			data-date-minviewmode="months" data-date-viewmode="years"
-			data-date-format="mm/yyyy" data-date="102/2012">
-			<input class="span2" type="text" readonly="" value="02/2012"
-				size="16"> <span class="add-on"> <i
-				class="icon-calendar"></i>
-			</span>
-		</div>
-		</div>
-		
+		<!-- Contenu -->
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
-				<h2>Liste des jouets</h2>
+				<h2>Affichage du dictionnaire</h2>
+
+				<input type="hidden" name="uneErreur" value="${MesErreurs}"
+					id="id_erreur">
+				<form class="form-horizontal" method="post"
+					action="afficherDictionnaire.htm" onsubmit="">
+					<input type="hidden" name="type" value="afficherDictionnaire"
+						id="type" /> <input type="hidden" name="action"
+						value="afficherDictionnaire.htm" />
+
+					<!-- input fields -->
+					<div class="form-group">
+						<label class="control-label">Catalogue :</label> <select
+							name="anneecatalogue" id="anneecatalogue">
+							<c:forEach items="${listCatalogue}" var="item">
+								<option value="${item.annee}">${item.annee}</option>
+							</c:forEach>
+						</select>
+
+						<!-- Boutons Ajouter/Reset -->
+						<button type="submit" name="afficher"
+							class="btn btn-default btn-primary">Afficher</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
 				<input type="hidden" name="uneErreur" value="${MesErreurs}"
 					id="id_erreur">
 				<table class="table table-bordered">
-					<CAPTION>Tableau des Stages</CAPTION>
+					<!-- 					<CAPTION></CAPTION> -->
 					<thead>
 						<tr>
 							<th class="col-md-2">Catégorie</th>
@@ -80,19 +107,19 @@
 						</tr>
 					</thead>
 					<tbody>
-							<c:forEach items="${catalogue.comportes}" var="itemComporte">
-								<tr>
-<%-- 									<td>${itemCatalogue.annee}"</td> --%>
-<%-- 									<td>${itemComporte.quantite}</td> --%>
-<%-- 									<td>${catalogue.quantiteDistribuee}</td> --%>
-										<!-- Retirer tous les jeux, vérif dans quel catalogue -->
-								</tr>
-							</c:forEach>
+						<c:forEach items="${catalogue.comportes}" var="itemComporte">
+							<tr>
+								<%-- 									<td>${itemCatalogue.annee}"</td> --%>
+								<%-- 									<td>${itemComporte.quantite}</td> --%>
+								<%-- 									<td>${catalogue.quantiteDistribuee}</td> --%>
+								<!-- Retirer tous les jeux, vérif dans quel catalogue -->
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
 
-<!-- 			aside -->
+			<!-- 			aside -->
 			<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
 				<ul class="nav nav-pills nav-stacked">
 					<li role="presentation"><a href="index.htm">Accueil</a></li>
@@ -111,7 +138,7 @@
 					<hr>
 					<li role="presentation"><a href="listerCatalogues.htm">Catalogues</a></li>
 					<hr>
-					<li role="presentation" class="active" ><a
+					<li role="presentation" class="active"><a
 						href="afficherDictionnaire.htm">Dictionnaires</a></li>
 				</ul>
 			</div>
@@ -124,7 +151,7 @@
 		<!--       </footer> -->
 
 	</div>
-<script src="resources/stylesheets/jquery-2.1.3.js"></script>
+	<script src="resources/stylesheets/jquery-2.1.3.js"></script>
 	<script
 		src="resources/stylesheets/datepicker/js/bootstrap-datepicker.js"></script>
 	<script type="text/javascript">

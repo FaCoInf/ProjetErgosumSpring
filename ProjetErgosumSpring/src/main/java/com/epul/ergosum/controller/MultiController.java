@@ -353,6 +353,8 @@ public class MultiController extends MultiActionController {
 		String destinationPage = "/Erreur";
 		try {
 			String id = request.getParameter("id");
+			System.out.println(request.getParameter("anneeDebut"));
+			System.out.println(request.getParameter("nbAnnees"));
 			// GestionErgosum unService = new GestionErgosum();
 			//
 			// if (unService != null) {
@@ -381,7 +383,11 @@ public class MultiController extends MultiActionController {
 
 		String destinationPage = "/Erreur";
 		try {
-			String annee = request.getParameter("annee");
+			String annee = request.getParameter("anneecatalogue");
+			System.out.println(request.getParameter("anneecatalogue"));
+			
+			request.setAttribute("listCatalogue",
+					catalogueService.getAllCatalogue());
 			// GestionErgosum unService = new GestionErgosum();
 
 			// if (unService != null) {
