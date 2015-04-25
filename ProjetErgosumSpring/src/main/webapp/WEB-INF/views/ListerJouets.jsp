@@ -39,6 +39,7 @@
 		</div>
 
 		<!-- Barre de navigation -->
+		<div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 			<div class="navbar-collapse collapse">
 				<ul class="nav nav-pills nav-justified">
@@ -51,10 +52,11 @@
 			</div>
 			<br> <br>
 		</div>
+		</div>
 
 		<!-- Contenu -->
 		<div class="row">
-			<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+			<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 contenu centrer">
 				<h2>Liste des jouets</h2>
 				<input type="hidden" name="uneErreur" value="${MesErreurs}"
 					id="id_erreur">
@@ -101,7 +103,9 @@
 			</div>
 
 			<!-- aside -->
-			<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+			<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 contenu">
+			<div class="row asideTitre">Pages</div>
+			<div class="row">
 				<ul class="nav nav-pills nav-stacked">
 					<li role="presentation"><a href="index.htm">Accueil</a></li>
 					<hr>
@@ -117,14 +121,14 @@
 							</div>
 						</div></li>
 					<hr>
-					<li role="presentation"><a
-						href="listerCatalogues.htm">Catalogues</a></li>
+					<li role="presentation"><a href="listerCatalogues.htm">Catalogues</a></li>
 					<hr>
 					<li role="presentation"><a
 						href="afficherDictionnaire.htm">Dictionnaires</a></li>
 				</ul>
 			</div>
 		</div>
+	</div>
 
 		<!--         <footer class="row"> -->
 		<!--         <div class="col-sm-12"> -->

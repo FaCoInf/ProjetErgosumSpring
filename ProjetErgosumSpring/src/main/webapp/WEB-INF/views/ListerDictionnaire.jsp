@@ -4,17 +4,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link href="resources/stylesheets/bootstrap/css/bootstrap.css"
+<link href="resources/stylesheets/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet" />
-<!-- <link href="resources/stylesheets/bootstrap-3.3.4/dist/css/bootstrap.css" -->
-<!-- 	rel="stylesheet" /> -->
-<!-- <link href="resources/stylesheets/bootstrap_2.3.2/css/bootstrap.css" -->
-<!-- 	rel="stylesheet" /> -->
 <link href="resources/stylesheets/css/style.css" rel="stylesheet">
-<!-- <link href="resources/stylesheets/datepicker/css/datepicker.css" -->
-<!-- 	rel="stylesheet"> -->
-<!-- <link href="resources/stylesheets/django-bootstrap3-datetimepicker-2.2.3/bootstrap3_datetime/static/bootstrap3_datetime/css/bootstrap-datetimepicker.min.css" -->
-<!-- 	rel="stylesheet"> -->
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script src="resources/stylesheets/jquery-2.1.3.js"></script>
@@ -65,99 +57,94 @@
 
 		<!-- Contenu -->
 		<div class="row">
-			<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
-				<h2>Affichage du dictionnaire</h2>
+			<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 contenu centrer">
+						<h2>
+							Le dictionnaire <span class="petitTitre">pour le catalogue
+								choisi</span>
+						</h2>
+						<br>
+						<input type="hidden" name="uneErreur" value="${MesErreurs}"
+							id="id_erreur">
+						<form class="form-horizontal" method="post"
+							action="afficherDictionnaire.htm" onsubmit="">
+							<input type="hidden" name="type" value="afficherDictionnaire"
+								id="type" /> <input type="hidden" name="action"
+								value="afficherDictionnaire.htm" />
 
-				<input type="hidden" name="uneErreur" value="${MesErreurs}"
-					id="id_erreur">
-				<form class="form-horizontal" method="post"
-					action="afficherDictionnaire.htm" onsubmit="">
-					<input type="hidden" name="type" value="afficherDictionnaire"
-						id="type" /> <input type="hidden" name="action"
-						value="afficherDictionnaire.htm" />
+							<!-- input fields -->
+							<div class="form-group">
+								<label class="control-label">Catalogue :</label> <select
+									name="anneecatalogue" id="anneecatalogue">
+									<c:forEach items="${listCatalogue}" var="item">
+										<option value="${item.annee}">${item.annee}</option>
+									</c:forEach>
+								</select>
 
-					<!-- input fields -->
-					<div class="form-group">
-						<label class="control-label">Catalogue :</label> <select
-							name="anneecatalogue" id="anneecatalogue">
-							<c:forEach items="${listCatalogue}" var="item">
-								<option value="${item.annee}">${item.annee}</option>
-							</c:forEach>
-						</select>
+								<!-- Bouton Afficher -->
+								<button type="submit" name="afficher"
+									class="btn btn-default btn-primary">Afficher</button>
+							</div>
+						</form>
 
-						<!-- Boutons Ajouter/Reset -->
-						<button type="submit" name="afficher"
-							class="btn btn-default btn-primary">Afficher</button>
-					</div>
-				</form>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
-				<input type="hidden" name="uneErreur" value="${MesErreurs}"
-					id="id_erreur">
-				<table class="table table-bordered">
-					<!-- 					<CAPTION></CAPTION> -->
-					<thead>
-						<tr>
-							<th class="col-md-2">Catégorie</th>
-							<th class="col-md-2">Quantitée</th>
-							<th class="col-md-2">distribuée</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${catalogue.comportes}" var="itemComporte">
+					<input type="hidden" name="uneErreur" value="${MesErreurs}"
+						id="id_erreur">
+					<table class="table table-bordered">
+						<!-- 					<CAPTION></CAPTION> -->
+						<thead>
 							<tr>
-								<%-- 									<td>${itemCatalogue.annee}"</td> --%>
-								<%-- 									<td>${itemComporte.quantite}</td> --%>
-								<%-- 									<td>${catalogue.quantiteDistribuee}</td> --%>
-								<!-- Retirer tous les jeux, vérif dans quel catalogue -->
+								<th class="col-md-2">Catégorie</th>
+								<th class="col-md-2">Quantitée</th>
+								<th class="col-md-2">distribuée</th>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							<c:forEach items="${catalogue.comportes}" var="itemComporte">
+								<tr>
+									<%-- 									<td>${itemCatalogue.annee}"</td> --%>
+									<%-- 									<td>${itemComporte.quantite}</td> --%>
+									<%-- 									<td>${catalogue.quantiteDistribuee}</td> --%>
+									<!-- Retirer tous les jeux, vérif dans quel catalogue -->
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 			</div>
 
 			<!-- 			aside -->
-			<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
-				<ul class="nav nav-pills nav-stacked">
-					<li role="presentation"><a href="index.htm">Accueil</a></li>
-					<hr>
-					<li role="presentation"><a href="afficherJouets.htm">Jouets</a>
-						<div class="row">
-							<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"></div>
-							<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-								<ul class="nav nav-pills nav-stacked">
-									<li><a href="afficherJouets.htm">Lister</a></li>
-									<hr>
-									<li><a href="ajouterJouet.htm">Ajouter</a></li>
-								</ul>
-							</div>
-						</div></li>
-					<hr>
-					<li role="presentation"><a href="listerCatalogues.htm">Catalogues</a></li>
-					<hr>
-					<li role="presentation" class="active"><a
-						href="afficherDictionnaire.htm">Dictionnaires</a></li>
-				</ul>
+			<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 contenu">
+				<div class="row asideTitre">Pages</div>
+				<div class="row">
+					<ul class="nav nav-pills nav-stacked">
+						<li role="presentation"><a href="index.htm">Accueil</a></li>
+						<hr>
+						<li role="presentation"><a href="afficherJouets.htm">Jouets</a>
+							<div class="row">
+								<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"></div>
+								<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+									<ul class="nav nav-pills nav-stacked">
+										<li><a href="afficherJouets.htm">Lister</a></li>
+										<hr>
+										<li><a href="ajouterJouet.htm">Ajouter</a></li>
+									</ul>
+								</div>
+							</div></li>
+						<hr>
+						<li role="presentation"><a href="listerCatalogues.htm">Catalogues</a></li>
+						<hr>
+						<li role="presentation" class="active"><a
+							href="afficherDictionnaire.htm">Dictionnaires</a></li>
+					</ul>
+				</div>
 			</div>
 		</div>
+	</div>
 
-		<!--         <footer class="row"> -->
-		<!--         <div class="col-sm-12"> -->
-		<!--           Pied de page -->
-		<!--         </div> -->
-		<!--       </footer> -->
+	<!--         <footer class="row"> -->
+	<!--         <div class="col-sm-12"> -->
+	<!--           Pied de page -->
+	<!--         </div> -->
+	<!--       </footer> -->
 
 	</div>
-	<script src="resources/stylesheets/jquery-2.1.3.js"></script>
-	<script
-		src="resources/stylesheets/datepicker/js/bootstrap-datepicker.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#dpMonths').datepicker({});
-		});
-	</script>
 </body>
 </html>
