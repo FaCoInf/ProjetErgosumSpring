@@ -144,8 +144,6 @@ public class MultiController extends MultiActionController {
 		String destinationPage = "/Erreur";
 		try {
 			String id = request.getParameter("id");
-			// GestionErgosum unService = new GestionErgosum();
-			// if (unService != null) {
 
 			// fabrication du jouet � partir des param�tres de la requ�te
 			// Si le jouet n'est pas � cr�er, il faut le r�cup�rer de la
@@ -196,7 +194,6 @@ public class MultiController extends MultiActionController {
 				e.printStackTrace();
 			}
 
-			// }
 			request.setAttribute("mesJouets", jouetServiceImpl.getAllJouet());
 			destinationPage = "/ListerJouets";
 		} catch (ConstraintViolationException ex) {
@@ -230,15 +227,10 @@ public class MultiController extends MultiActionController {
 		String destinationPage = "Erreur";
 		try {
 			String id = request.getParameter("id");
-			// GestionErgosum unService = new GestionErgosum();
-			//
-			// if (unService != null) {
+
 			Jouet unJouet = jouetServiceImpl.getJouet(id);
 			request.setAttribute("jouet", unJouet);
-			// request.setAttribute("categories",
-			// unService.listerToutesLesCategories());
-			// request.setAttribute("tranches",
-			// unService.listerToutesLesTranches());
+
 			request.setAttribute("listCategorie", categorieService.getAllCategorie());
 			request.setAttribute("listTrancheAge", trancheageService.getAllTrancheage());
 			request.setAttribute("listCatalogue", catalogueService.getAllCatalogue());
@@ -249,8 +241,6 @@ public class MultiController extends MultiActionController {
 			request.setAttribute("page", "sauverJouet.htm");
 
 			destinationPage = "/ModifierJouet";
-			// }
-
 		} catch (MappingException e) {
 			e.printStackTrace();
 			request.setAttribute("MesErreurs", e.getMessage());
@@ -291,18 +281,6 @@ public class MultiController extends MultiActionController {
 		return new ModelAndView(destinationPage);
 	}
 
-	// /**
-	// * Sélection d'une année par catégorie
-	// */
-	// @RequestMapping(value = "selectionnerAnnee.htm")
-	// public ModelAndView selectionAnnee(HttpServletRequest request,
-	// HttpServletResponse response) throws Exception {
-	//
-	// String destinationPage = "";
-	// destinationPage = "/selectCionAnneeCat";
-	// return new ModelAndView(destinationPage);
-	// }
-
 	/**
 	 * Sélection d'une année Ctagoriet
 	 */
@@ -339,7 +317,6 @@ public class MultiController extends MultiActionController {
 					catalogueService.getCatalogueBetweenYears(Integer.parseInt(request.getParameter("anneeDebut")), Integer.parseInt(request.getParameter("nbAnnees"))));
 
 			destinationPage = "/ListerCatalogues";
-			// }
 		}
 
 		catch (MappingException e) {

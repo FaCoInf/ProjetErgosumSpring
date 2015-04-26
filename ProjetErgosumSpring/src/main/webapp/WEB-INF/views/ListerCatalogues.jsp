@@ -63,15 +63,13 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${mesCatalogues}" var="itemCatalogue">
-							<c:forEach items="${itemCatalogue.comportes}" var="itemComporte">
+						<c:forEach items="${mesCataloguesQuantites}" var="item">
 								<tr>
-									<td>Année ${itemCatalogue.annee}"</td>
-									<td>${itemComporte.quantite}</td>
-									<td>${itemCatalogue.quantiteDistribuee}</td>
-									<td>${itemComporte.quantite - itemCatalogue.quantiteDistribuee}</td>
+									<td>Année ${item.id}</td>
+									<td>${item.quantite}</td>
+									<td>${item.quantiteDistribuee}</td>
+									<td>${item.difference}</td>
 								</tr>
-							</c:forEach>
 						</c:forEach>
 					</tbody>
 				</table>

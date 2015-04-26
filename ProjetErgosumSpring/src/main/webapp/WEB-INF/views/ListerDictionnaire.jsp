@@ -93,17 +93,14 @@
 						<thead>
 							<tr>
 								<th class="col-md-2">Catégorie</th>
-								<th class="col-md-2">Quantitée</th>
-								<th class="col-md-2">distribuée</th>
+								<th class="col-md-2">Quantité distribuée</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${catalogue.comportes}" var="itemComporte">
+							<c:forEach items="${dictionnaire}" var="item">
 								<tr>
-									<%-- 									<td>${itemCatalogue.annee}"</td> --%>
-									<%-- 									<td>${itemComporte.quantite}</td> --%>
-									<%-- 									<td>${catalogue.quantiteDistribuee}</td> --%>
-									<!-- Retirer tous les jeux, vérif dans quel catalogue -->
+									<td>${item.key.libcateg}</td>
+									<td>${item.value}</td>
 								</tr>
 							</c:forEach>
 						</tbody>
