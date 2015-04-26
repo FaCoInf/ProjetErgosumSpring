@@ -2,19 +2,15 @@ package com.epul.ergosum.dao;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.epul.ergosum.model.Catalogue;
-import com.epul.ergosum.model.Jouet;
-import com.epul.ergosum.model.Trancheage;
 
 public class CatalogueDAOImpl implements CatalogueDAO {
 
-	private SessionFactory sessionFactory;
+	private SessionFactory	sessionFactory;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
@@ -64,7 +60,5 @@ public class CatalogueDAOImpl implements CatalogueDAO {
 		currentSession.close();
 		return result;
 	}
-	
-	
-	
+
 }
