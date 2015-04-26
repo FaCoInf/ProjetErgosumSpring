@@ -27,4 +27,14 @@ public class ComporteDAOImpl implements ComporteDAO {
 		return comportes;
 	}
 
+	@Override
+	public List<Comporte> getAllComporte() {
+		Session currentSession = this.sessionFactory.openSession();
+		Query query = currentSession.createQuery("from Comporte");
+		List<Comporte> comportes = query.list();
+		currentSession.close();
+
+		return comportes;
+	}
+
 }

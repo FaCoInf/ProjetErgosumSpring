@@ -2,6 +2,7 @@ package com.epul.ergosum.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -361,16 +362,12 @@ public class MultiController extends MultiActionController {
 			System.out.println(request.getParameter("anneecatalogue"));
 
 			request.setAttribute("listCatalogue", catalogueService.getAllCatalogue());
-			// GestionErgosum unService = new GestionErgosum();
-
-			// if (unService != null) {
-			//
-			// HashMap<Categorie, Integer> hashCatInt = unService
-			// .rechercherDictionnaire(request.getParameter("annee"));
-			// request.setAttribute("dictionnaire", hashCatInt);
-			request.setAttribute("anneecatalogue", annee);
+			if (annee != null) {
+				HashMap<Categorie, Integer> hashCatInt = categorieService.getDictionnaires(Integer.parseInt(annee));
+				request.setAttribute("dictionnaire", hashCatInt);
+				request.setAttribute("anneecatalogue", annee);
+			}
 			destinationPage = "/ListerDictionnaire";
-			// }
 		}
 
 		catch (MappingException e) {

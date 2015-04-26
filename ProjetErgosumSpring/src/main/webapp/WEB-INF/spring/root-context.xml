@@ -68,6 +68,7 @@
 
 	<bean id="CategorieService" class="com.epul.ergosum.service.CategorieServiceImpl">
 		<property name="categorieDAO" ref="CategorieDAO" />
+		<property name="comporteDAO" ref="comporteDAO" />
 	</bean>
 
 	<bean id="TrancheageService" class="com.epul.ergosum.service.TrancheageServiceImpl">
