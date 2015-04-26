@@ -14,6 +14,12 @@
 <script src="resources/stylesheets/jquery-2.1.3.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		// Si erreur => popup
+		var erreurs = "<c:out value='${MesErreurs}' />";
+		if(erreurs != ""){
+			alert(erreurs);
+		}
+		
 		
 		// Selection des listes déroulantes
 		var codetranche = "<c:out value='${jouet.trancheage.codetranche}' />";
