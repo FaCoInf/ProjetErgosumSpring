@@ -57,7 +57,7 @@ public class CatalogueDAOImpl implements CatalogueDAO {
 	@Override
 	public int modifyCatalogue(Catalogue catalogue) {
 		Session currentSession = this.sessionFactory.openSession();
-		Query query = currentSession.createQuery("update table Catalogue set annee = :annee, quantiteDistribuee = :quantiteDistribuee)");
+		Query query = currentSession.createQuery("update Catalogue set quantiteDistribuee = :quantiteDistribuee where annee = :annee)");
 		query.setParameter("annee", catalogue.getAnnee());
 		query.setParameter("quantiteDistribuee", catalogue.getQuantiteDistribuee());
 		int result = query.executeUpdate();

@@ -177,7 +177,7 @@ public class MultiController extends MultiActionController {
 				unJouet = new Jouet();
 			} else { // on r�cup�re le jouet courant
 
-				// unJouet = unService.rechercherJouet(id);
+				unJouet = jouetDAO.getJouet(id);
 			}
 			unJouet.setNumero(request.getParameter("id"));
 			unJouet.setLibelle(request.getParameter("libelle"));
@@ -194,7 +194,7 @@ public class MultiController extends MultiActionController {
 			unJouet.setTrancheage(uneTranche);
 
 			// sauvegarde du jouet
-			if (request.getParameter("type").equals("modif")) {
+			if (request.getParameter("type").equals("modifierJouet")) {
 				 jouetDAO.modifyJouet(unJouet);
 			} else {
 
@@ -225,6 +225,8 @@ public class MultiController extends MultiActionController {
 			}
 
 			// }
+			request.setAttribute("mesJouets", jouetDAO.getAllJouet());
+			destinationPage = "/ListerJouets";
 		} catch (Exception e) {
 			request.setAttribute("MesErreurs", e.getMessage());
 		}
@@ -242,8 +244,6 @@ public class MultiController extends MultiActionController {
 		String destinationPage = "Erreur";
 		try {
 			String id = request.getParameter("id");
-			request.setAttribute("title", "Modifier un jouet");
-			request.setAttribute("textButton", "Modifier");
 			// GestionErgosum unService = new GestionErgosum();
 			//
 			// if (unService != null) {
@@ -260,12 +260,12 @@ public class MultiController extends MultiActionController {
 			request.setAttribute("listCatalogue",
 					catalogueService.getAllCatalogue());
 
-			request.setAttribute("title", "Modifier un jouet");
+			request.setAttribute("title", "Modifier le jouet");
 			request.setAttribute("textButton", "Modifier");
 			request.setAttribute("action", "modifierJouet");
 			request.setAttribute("page", "sauverJouet.htm");
 
-			destinationPage = "/SaisieJouet";
+			destinationPage = "/ModifierJouet";
 			// }
 
 		} catch (MappingException e) {
@@ -288,17 +288,18 @@ public class MultiController extends MultiActionController {
 			// GestionErgosum unService = new GestionErgosum();
 			//
 			// if (unService != null) {
-			// // recuperation de la liste des id a effacer
+			 // recuperation de la liste des id a effacer
 			 String[] ids = request.getParameterValues("id");
 
-			// // effacement de la liste des id
-			// try {
-			// if (ids != null) {
+			 // effacement de la liste des id
+			 if (ids != null) {
 			// unService.effacer(ids);
-			// }
-			// // preparation de la liste
-			// request.setAttribute("mesJouets",
-			// unService.listerTousLesJouets());
+				 for (int i = 0; i < ids.length; i++) {
+					jouetDAO.suppressJouet(ids[i]);
+				}
+			 }
+			 // preparation de la liste
+			 request.setAttribute("mesJouets", jouetDAO.getAllJouet());
 		}
 
 		catch (MappingException e) {

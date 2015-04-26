@@ -58,7 +58,7 @@
 		<!-- 		Contenu -->
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 contenu">
-				<h2>${title}</h2>
+				<h2>${title} n°${jouet.numero}</h2>
 				<input type="hidden" name="uneErreur" value="${MesErreurs}"
 					id="id_erreur">
 				<form class="form-horizontal" method="post" action="${page}"
@@ -67,7 +67,7 @@
 						type="hidden" name="action" value="${page}" />
 
 					<!-- input fields -->
-					<div class="form-group">
+					<div class="form-group" hidden="true">
 						<label class="col-sm-4 col-md-5 control-label">Numéro</label>
 						<div class="col-sm-6 col-md-4">
 							<input type="text" name="id" value="${jouet.numero}" id="id"
@@ -102,21 +102,6 @@
 								</c:forEach>
 							</select>
 						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-4 col-md-5 control-label">Quantité de
-							distribution</label>
-						<div class="col-sm-6 col-md-4">
-							<input type="text" name="quantiteDistribution"
-								value="${catalogue.quantiteDistribuee}"
-								id="quantiteDistribution" class="form-control" required />
-						</div>
-						<label> dans le catalogue </label> <select name="codecatalogue"
-							id="codecatalogue">
-							<c:forEach items="${listCatalogue}" var="item">
-								<option value="${item.annee}">${item.annee}</option>
-							</c:forEach>
-						</select>
 					</div>
 
 					<!-- Boutons Ajouter/Reset -->
