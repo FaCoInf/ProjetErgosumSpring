@@ -64,7 +64,6 @@ public class CatalogueDAOImpl implements CatalogueDAO {
 	@Override
 	public List<Catalogue> getNbCatalogueFromYear(int anneeDepart, int nbAnnee) {
 		Session currentSession = this.sessionFactory.openSession();
-
 		Query query = currentSession.createQuery("from Catalogue where annee between :anneeDep and :anneeFin");
 		query.setParameter("anneeDep", anneeDepart);
 		query.setParameter("anneeFin", anneeDepart + nbAnnee);

@@ -336,6 +336,7 @@ public class MultiController extends MultiActionController {
 			// preparation de la liste
 			request.setAttribute("mesCataloguesQuantites",
 					catalogueService.getCatalogueBetweenYears(Integer.parseInt(request.getParameter("anneeDebut")), Integer.parseInt(request.getParameter("nbAnnees"))));
+
 			destinationPage = "/ListerCatalogues";
 			// }
 		}

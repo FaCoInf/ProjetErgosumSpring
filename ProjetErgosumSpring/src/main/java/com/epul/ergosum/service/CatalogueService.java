@@ -16,4 +16,5 @@ public interface CatalogueService {
 	public int modifyCatalogue(Catalogue catalogue);
 
 	public List<CatalogueQuantites> getCatalogueBetweenYears(int anneeDepart, int nbAnnee);
+
 }
