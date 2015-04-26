@@ -34,22 +34,21 @@ import com.epul.ergosum.model.Trancheage;
 @Controller
 public class MultiController extends MultiActionController {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(MultiController.class);
+	private static final Logger	logger	= LoggerFactory.getLogger(MultiController.class);
 
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	private Jouet unJouet;
+	private Jouet				unJouet;
 
 	@Autowired
-	protected JouetDAO jouetDAO;
+	protected JouetDAO			jouetDAO;
 	@Autowired
-	protected CategorieDAO categorieService;
+	protected CategorieDAO		categorieService;
 	@Autowired
-	protected CatalogueDAO catalogueService;
+	protected CatalogueDAO		catalogueService;
 	@Autowired
-	protected TrancheageDAO trancheageService;
+	protected TrancheageDAO		trancheageService;
 
 	// protected JouetService jouetService;
 	//
@@ -74,8 +73,7 @@ public class MultiController extends MultiActionController {
 	@RequestMapping(value = "index.htm", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
-				DateFormat.LONG, locale);
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		String formattedDate = dateFormat.format(date);
 		model.addAttribute("serverTime", formattedDate);
 		return "/index";
@@ -85,8 +83,7 @@ public class MultiController extends MultiActionController {
 	 * Affichage de tous les jouets
 	 */
 	@RequestMapping(value = "afficherJouets.htm")
-	public ModelAndView afficherLesJouets(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ModelAndView afficherLesJouets(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String destinationPage = "";
 		try {
@@ -106,14 +103,13 @@ public class MultiController extends MultiActionController {
 			List<Jouet> jouets = jouetDAO.getAllJouet(); // get en fonction code
 															// & tranche
 			request.setAttribute("mesJouets", jouets);
-			request.setAttribute("listCategorie",
-					categorieService.getAllCategorie());
-			request.setAttribute("listTrancheAge",
-					trancheageService.getAllTranchage());
+			request.setAttribute("listCategorie", categorieService.getAllCategorie());
+			request.setAttribute("listTrancheAge", trancheageService.getAllTranchage());
 
 			return new ModelAndView("ListerJouets");
 		} catch (MappingException e) {
 			request.setAttribute("MesErreurs", e.getMessage());
+			e.printStackTrace();
 		}
 		destinationPage = "/ListerJouets";
 
@@ -124,8 +120,7 @@ public class MultiController extends MultiActionController {
 	 * Ajout d'un jouet
 	 */
 	@RequestMapping(value = "ajouterJouet.htm")
-	public ModelAndView ajoutJouet(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ModelAndView ajoutJouet(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String destinationPage = "";
 
@@ -134,12 +129,9 @@ public class MultiController extends MultiActionController {
 			// on passe les num�ros de client et de vendeur
 			request.setAttribute("jouet", new Jouet());
 
-			request.setAttribute("listCategorie",
-					categorieService.getAllCategorie());
-			request.setAttribute("listTrancheAge",
-					trancheageService.getAllTranchage());
-			request.setAttribute("listCatalogue",
-					catalogueService.getAllCatalogue());
+			request.setAttribute("listCategorie", categorieService.getAllCategorie());
+			request.setAttribute("listTrancheAge", trancheageService.getAllTranchage());
+			request.setAttribute("listCatalogue", catalogueService.getAllCatalogue());
 
 			request.setAttribute("title", "Ajouter un jouet");
 			request.setAttribute("textButton", "Ajouter");
@@ -149,6 +141,7 @@ public class MultiController extends MultiActionController {
 			destinationPage = "/SaisieJouet";
 		} catch (MappingException e) {
 			request.setAttribute("MesErreurs", e.getMessage());
+			e.printStackTrace();
 		}
 
 		return new ModelAndView(destinationPage);
@@ -158,8 +151,7 @@ public class MultiController extends MultiActionController {
 	 * Sauver jouet
 	 */
 	@RequestMapping(value = "sauverJouet.htm")
-	public ModelAndView sauverJouet(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ModelAndView sauverJouet(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String destinationPage = "/Erreur";
 		try {
@@ -181,53 +173,46 @@ public class MultiController extends MultiActionController {
 			}
 			unJouet.setNumero(request.getParameter("id"));
 			unJouet.setLibelle(request.getParameter("libelle"));
-			System.out
-					.println("codecateg=" + request.getParameter("codecateg"));
-			System.out.println("codetranche="
-					+ request.getParameter("codetranche"));
-			Categorie uneCateg = categorieService.getCategorie(request
-					.getParameter("codecateg"));
+			System.out.println("codecateg=" + request.getParameter("codecateg"));
+			System.out.println("codetranche=" + request.getParameter("codetranche"));
+			Categorie uneCateg = categorieService.getCategorie(request.getParameter("codecateg"));
 			unJouet.setCategorie(uneCateg);
 
-			Trancheage uneTranche = trancheageService.getTrancheage(request
-					.getParameter("codetranche"));
+			Trancheage uneTranche = trancheageService.getTrancheage(request.getParameter("codetranche"));
 			unJouet.setTrancheage(uneTranche);
 
 			// sauvegarde du jouet
 			if (request.getParameter("type").equals("modifierJouet")) {
-				 jouetDAO.modifyJouet(unJouet);
+				jouetDAO.modifyJouet(unJouet);
 			} else {
 
-				Catalogue leCatalogue = catalogueService.getCatalogue(Integer
-						.parseInt(request.getParameter("codecatalogue")));
+				Catalogue leCatalogue = catalogueService.getCatalogue(Integer.parseInt(request.getParameter("codecatalogue")));
 				System.out.println("Je suis � la quantit� ");
 				;
-				System.out.println("codecatalogue="
-						+ request.getParameter("codecatalogue"));
+				System.out.println("codecatalogue=" + request.getParameter("codecatalogue"));
 
-				System.out.println("quantiteDistribution="
-						+ request.getParameter("quantiteDistribution"));
+				System.out.println("quantiteDistribution=" + request.getParameter("quantiteDistribution"));
 
-				int quantiteDistribution = Integer.parseInt(request
-						.getParameter("quantiteDistribution"));
+				int quantiteDistribution = Integer.parseInt(request.getParameter("quantiteDistribution"));
 				if (quantiteDistribution > 0) {
-					leCatalogue.setQuantiteDistribuee(leCatalogue
-							.getQuantiteDistribuee() + quantiteDistribution);
-				catalogueService.modifyCatalogue(leCatalogue);
+					leCatalogue.setQuantiteDistribuee(leCatalogue.getQuantiteDistribuee() + quantiteDistribution);
+					catalogueService.modifyCatalogue(leCatalogue);
 				}
-				 jouetDAO.addJouet(unJouet);
+				jouetDAO.addJouet(unJouet);
 			}
 			try {
 				request.setAttribute("mesJouets", jouetDAO.getAllJouet());
 				destinationPage = "/ListerJouets";
 			} catch (MappingException e) {
 				request.setAttribute("MesErreurs", e.getMessage());
+				e.printStackTrace();
 			}
 
 			// }
 			request.setAttribute("mesJouets", jouetDAO.getAllJouet());
 			destinationPage = "/ListerJouets";
 		} catch (Exception e) {
+			e.printStackTrace();
 			request.setAttribute("MesErreurs", e.getMessage());
 		}
 
@@ -238,8 +223,7 @@ public class MultiController extends MultiActionController {
 	 * Modifier Jouet
 	 */
 	@RequestMapping(value = "modifierJouet.htm")
-	public ModelAndView modifierJouet(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ModelAndView modifierJouet(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String destinationPage = "Erreur";
 		try {
@@ -253,12 +237,9 @@ public class MultiController extends MultiActionController {
 			// unService.listerToutesLesCategories());
 			// request.setAttribute("tranches",
 			// unService.listerToutesLesTranches());
-			request.setAttribute("listCategorie",
-					categorieService.getAllCategorie());
-			request.setAttribute("listTrancheAge",
-					trancheageService.getAllTranchage());
-			request.setAttribute("listCatalogue",
-					catalogueService.getAllCatalogue());
+			request.setAttribute("listCategorie", categorieService.getAllCategorie());
+			request.setAttribute("listTrancheAge", trancheageService.getAllTranchage());
+			request.setAttribute("listCatalogue", catalogueService.getAllCatalogue());
 
 			request.setAttribute("title", "Modifier le jouet");
 			request.setAttribute("textButton", "Modifier");
@@ -269,6 +250,7 @@ public class MultiController extends MultiActionController {
 			// }
 
 		} catch (MappingException e) {
+			e.printStackTrace();
 			request.setAttribute("MesErreurs", e.getMessage());
 		}
 
@@ -279,8 +261,7 @@ public class MultiController extends MultiActionController {
 	 * effacer jouet
 	 */
 	@RequestMapping(value = "effacerJouet.htm")
-	public ModelAndView effacerJouet(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ModelAndView effacerJouet(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String destinationPage = "";
 		try {
@@ -288,21 +269,22 @@ public class MultiController extends MultiActionController {
 			// GestionErgosum unService = new GestionErgosum();
 			//
 			// if (unService != null) {
-			 // recuperation de la liste des id a effacer
-			 String[] ids = request.getParameterValues("id");
+			// recuperation de la liste des id a effacer
+			String[] ids = request.getParameterValues("id");
 
-			 // effacement de la liste des id
-			 if (ids != null) {
-			// unService.effacer(ids);
-				 for (int i = 0; i < ids.length; i++) {
+			// effacement de la liste des id
+			if (ids != null) {
+				// unService.effacer(ids);
+				for (int i = 0; i < ids.length; i++) {
 					jouetDAO.suppressJouet(ids[i]);
 				}
-			 }
-			 // preparation de la liste
-			 request.setAttribute("mesJouets", jouetDAO.getAllJouet());
+			}
+			// preparation de la liste
+			request.setAttribute("mesJouets", jouetDAO.getAllJouet());
 		}
 
 		catch (MappingException e) {
+			e.printStackTrace();
 			request.setAttribute("MesErreurs", e.getMessage());
 		}
 
@@ -326,8 +308,7 @@ public class MultiController extends MultiActionController {
 	 * Sélection d'une année Ctagoriet
 	 */
 	@RequestMapping(value = "listerCatalogues.htm")
-	public ModelAndView choixCatalogue(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ModelAndView choixCatalogue(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String destinationPage = "/Erreur";
 		try {
@@ -338,6 +319,7 @@ public class MultiController extends MultiActionController {
 			// unService.listerTousLesCatalogues());
 			destinationPage = "/ChoixCatalogue";
 		} catch (MappingException e) {
+			e.printStackTrace();
 			request.setAttribute("MesErreurs", e.getMessage());
 		}
 
@@ -348,8 +330,7 @@ public class MultiController extends MultiActionController {
 	 * afficher Catalogue
 	 */
 	@RequestMapping(value = "afficherCatalogues.htm")
-	public ModelAndView afficherCatalogue(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ModelAndView afficherCatalogue(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String destinationPage = "/Erreur";
 		try {
@@ -369,6 +350,7 @@ public class MultiController extends MultiActionController {
 		}
 
 		catch (MappingException e) {
+			e.printStackTrace();
 			request.setAttribute("MesErreurs", e.getMessage());
 		}
 
@@ -379,16 +361,14 @@ public class MultiController extends MultiActionController {
 	 * afficher le Dictionnaire
 	 */
 	@RequestMapping(value = "afficherDictionnaire.htm")
-	public ModelAndView afficherDictionnaire(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ModelAndView afficherDictionnaire(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String destinationPage = "/Erreur";
 		try {
 			String annee = request.getParameter("anneecatalogue");
 			System.out.println(request.getParameter("anneecatalogue"));
-			
-			request.setAttribute("listCatalogue",
-					catalogueService.getAllCatalogue());
+
+			request.setAttribute("listCatalogue", catalogueService.getAllCatalogue());
 			// GestionErgosum unService = new GestionErgosum();
 
 			// if (unService != null) {
@@ -402,6 +382,7 @@ public class MultiController extends MultiActionController {
 		}
 
 		catch (MappingException e) {
+			e.printStackTrace();
 			request.setAttribute("MesErreurs", e.getMessage());
 		}
 
