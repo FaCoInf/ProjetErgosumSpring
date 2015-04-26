@@ -8,6 +8,12 @@ import org.hibernate.SessionFactory;
 
 import com.epul.ergosum.model.Comporte;
 
+/**
+ * Accès aux données de Comporte
+ * @author Corinne & Laura
+ *
+ */
+
 public class ComporteDAOImpl implements ComporteDAO {
 	private SessionFactory	sessionFactory;
 

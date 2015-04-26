@@ -7,6 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.epul.ergosum.dao.TrancheageDAO;
 import com.epul.ergosum.model.Trancheage;
 
+/**
+ * @author Corinne & Laura
+ *
+ */
+
 public class TrancheageServiceImpl implements TrancheageService {
 
 	@Autowired

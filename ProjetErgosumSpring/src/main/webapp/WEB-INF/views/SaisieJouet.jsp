@@ -2,9 +2,9 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- Auteurs : Corinne & Laura -->
 <html>
 <head>
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
 <link href="resources/stylesheets/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet" />
 <link href="resources/stylesheets/css/style.css" rel="stylesheet">
@@ -77,7 +77,7 @@
 						<label class="col-sm-4 col-md-5 control-label">Numéro</label>
 						<div class="col-sm-6 col-md-4">
 							<input type="text" name="id" value="${jouet.numero}" id="id"
-								class="form-control" required />
+								class="form-control" required pattern="\d*" />
 						</div>
 					</div>
 					<div class="form-group">
@@ -115,7 +115,7 @@
 						<div class="col-sm-6 col-md-4">
 							<input type="text" name="quantiteDistribution"
 								value="${catalogue.quantiteDistribuee}"
-								id="quantiteDistribution" class="form-control" required />
+								id="quantiteDistribution" class="form-control" required pattern="\d*" />
 						</div>
 						<label> dans le catalogue </label> <select name="codecatalogue"
 							id="codecatalogue">

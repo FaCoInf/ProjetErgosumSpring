@@ -8,6 +8,12 @@ import org.hibernate.SessionFactory;
 
 import com.epul.ergosum.model.Categorie;
 
+/**
+ * Accès aux données de categorie
+ * @author Corinne & Laura
+ *
+ */
+
 public class CategorieDAOImpl implements CategorieDAO {
 
 	private SessionFactory	sessionFactory;

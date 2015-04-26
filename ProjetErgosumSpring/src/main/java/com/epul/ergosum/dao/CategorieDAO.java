@@ -4,6 +4,12 @@ import java.util.List;
 
 import com.epul.ergosum.model.Categorie;
 
+/**
+ * Accès aux données de categorie
+ * @author Corinne & Laura
+ *
+ */
+
 public interface CategorieDAO {
 
 	public List<Categorie> getAllCategorie();

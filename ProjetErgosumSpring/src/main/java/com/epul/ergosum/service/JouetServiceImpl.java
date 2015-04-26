@@ -9,7 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.epul.ergosum.dao.JouetDAO;
 import com.epul.ergosum.model.Jouet;
 
-//@Service
+/**
+ * @author Corinne & Laura
+ *
+ */
+
 public class JouetServiceImpl implements JouetService {
 
 	@PostConstruct

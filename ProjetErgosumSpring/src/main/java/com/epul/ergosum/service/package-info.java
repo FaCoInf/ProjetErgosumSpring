@@ -1,8 +1,7 @@
 /**
- * 
- */
-/**
- * @author p1307999
+ * Les services
+ * @author Corinne & Laura
  *
  */
+
 package com.epul.ergosum.service;

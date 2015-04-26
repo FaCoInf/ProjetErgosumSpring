@@ -5,6 +5,11 @@ import java.util.List;
 import com.epul.ergosum.metier.CatalogueQuantites;
 import com.epul.ergosum.model.Catalogue;
 
+/**
+ * @author Corinne & Laura
+ *
+ */
+
 public interface CatalogueService {
 
 	public List<Catalogue> getAllCatalogue();
@@ -15,6 +20,7 @@ public interface CatalogueService {
 
 	public int modifyCatalogue(Catalogue catalogue);
 
-	public List<CatalogueQuantites> getCatalogueBetweenYears(int anneeDepart, int nbAnnee);
+	public List<CatalogueQuantites> getCatalogueBetweenYears(int anneeDepart,
+			int nbAnnee);
 
 }

@@ -8,6 +8,12 @@ import org.hibernate.SessionFactory;
 
 import com.epul.ergosum.model.Catalogue;
 
+/**
+ * Accès aux données de catalogue
+ * @author Corinne & Laura
+ *
+ */
+
 public class CatalogueDAOImpl implements CatalogueDAO {
 
 	private SessionFactory	sessionFactory;

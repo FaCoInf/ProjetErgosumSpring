@@ -9,6 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.epul.ergosum.model.Jouet;
 
+/**
+ * Accès aux données de jouet
+ * @author Laura & Corinne
+ *
+ */
+
 public class JouetDAOImpl implements JouetDAO {
 
 	private SessionFactory	sessionFactory;

@@ -11,13 +11,19 @@ import com.epul.ergosum.metier.CatalogueQuantites;
 import com.epul.ergosum.model.Catalogue;
 import com.epul.ergosum.model.Comporte;
 
+
+/**
+ * @author Corinne & Laura
+ *
+ */
+
 public class CatalogueServiceImpl implements CatalogueService {
 
 	@Autowired
-	protected CatalogueDAO	catalogueDAO;
+	protected CatalogueDAO catalogueDAO;
 
 	@Autowired
-	protected ComporteDAO	comporteDAO;
+	protected ComporteDAO comporteDAO;
 
 	@Override
 	public List<Catalogue> getAllCatalogue() {
@@ -40,16 +46,21 @@ public class CatalogueServiceImpl implements CatalogueService {
 	}
 
 	@Override
-	public List<CatalogueQuantites> getCatalogueBetweenYears(int anneeDepart, int nbAnnee) {
-		List<Comporte> comportes = comporteDAO.getComporteBetweenYears(anneeDepart, nbAnnee);
+	public List<CatalogueQuantites> getCatalogueBetweenYears(int anneeDepart,
+			int nbAnnee) {
+		List<Comporte> comportes = comporteDAO.getComporteBetweenYears(
+				anneeDepart, nbAnnee);
 		List<CatalogueQuantites> catalogueQuantite = new ArrayList<CatalogueQuantites>();
 		CatalogueQuantites cataQuantite;
 		for (Comporte comporte : comportes) {
 			cataQuantite = new CatalogueQuantites();
-			cataQuantite.setId(String.valueOf(comporte.getCatalogue().getAnnee()));
-			cataQuantite.setQuantiteDistribuee(String.valueOf(comporte.getCatalogue().getQuantiteDistribuee()));
+			cataQuantite.setId(String.valueOf(comporte.getCatalogue()
+					.getAnnee()));
+			cataQuantite.setQuantiteDistribuee(String.valueOf(comporte
+					.getCatalogue().getQuantiteDistribuee()));
 			cataQuantite.setQuantite(String.valueOf(comporte.getQuantite()));
-			cataQuantite.setDifference(String.valueOf(comporte.getQuantite() - comporte.getCatalogue().getQuantiteDistribuee()));
+			cataQuantite.setDifference(String.valueOf(comporte.getQuantite()
+					- comporte.getCatalogue().getQuantiteDistribuee()));
 
 			catalogueQuantite.add(cataQuantite);
 		}

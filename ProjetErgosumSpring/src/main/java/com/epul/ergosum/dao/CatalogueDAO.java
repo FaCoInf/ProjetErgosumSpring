@@ -6,9 +6,10 @@ import com.epul.ergosum.model.Catalogue;
 
 /**
  * Accès aux données de catalogue
- * @author Corinne
+ * @author Corinne & Laura
  *
  */
+
 public interface CatalogueDAO {
 
 	/**

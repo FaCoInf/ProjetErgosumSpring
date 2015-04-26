@@ -1,5 +1,10 @@
 package com.epul.ergosum.metier;
 
+/**
+ * @author Corinne & Laura
+ *
+ */
+
 public class CatalogueQuantites {
 	private String	id;
 	private String	quantiteDistribuee;

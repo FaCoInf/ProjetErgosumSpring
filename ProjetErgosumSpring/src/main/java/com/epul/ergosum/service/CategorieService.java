@@ -5,6 +5,11 @@ import java.util.List;
 
 import com.epul.ergosum.model.Categorie;
 
+/**
+ * @author Corinne & Laura
+ *
+ */
+
 public interface CategorieService {
 
 	public List<Categorie> getAllCategorie();

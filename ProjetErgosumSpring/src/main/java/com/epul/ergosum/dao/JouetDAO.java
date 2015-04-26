@@ -6,9 +6,10 @@ import com.epul.ergosum.model.Jouet;
 
 /**
  * Accès aux données de jouet
- * @author Laura
+ * @author Laura & Corinne
  *
  */
+
 public interface JouetDAO {
 
 	/**

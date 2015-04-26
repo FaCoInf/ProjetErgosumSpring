@@ -32,6 +32,8 @@ import com.epul.ergosum.service.TrancheageService;
 
 /**
  * Handles requests for the application home page.
+ * @author Corinne & Laura
+ *
  */
 @Controller
 public class MultiController extends MultiActionController {

@@ -10,6 +10,11 @@ import com.epul.ergosum.dao.ComporteDAO;
 import com.epul.ergosum.model.Categorie;
 import com.epul.ergosum.model.Comporte;
 
+/**
+ * @author Corinne & Laura
+ *
+ */
+
 public class CategorieServiceImpl implements CategorieService {
 
 	@Autowired

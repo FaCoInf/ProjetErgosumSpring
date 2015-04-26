@@ -9,6 +9,12 @@ import org.hibernate.SessionFactory;
 import com.epul.ergosum.model.Categorie;
 import com.epul.ergosum.model.Trancheage;
 
+/**
+ * Accès aux données de TrancheAge
+ * @author Laura & Corinne
+ *
+ */
+
 public class TrancheageDAOImpl implements TrancheageDAO{
 
 	private SessionFactory sessionFactory;

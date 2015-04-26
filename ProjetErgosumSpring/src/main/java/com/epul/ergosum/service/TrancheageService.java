@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.epul.ergosum.model.Trancheage;
 
+/**
+ * @author Corinne & Laura
+ *
+ */
+
 public interface TrancheageService {
 
 	public List<Trancheage> getAllTrancheage();

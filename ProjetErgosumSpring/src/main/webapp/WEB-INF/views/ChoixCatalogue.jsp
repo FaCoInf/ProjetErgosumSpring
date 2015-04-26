@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- Auteurs : Corinne & Laura -->
 <html>
 <head>
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
@@ -41,7 +42,6 @@
 		<!-- 		Contenu -->
 		<div class="row">
 			<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 contenu centrer">
-				<!-- 		mettre titre en variable et faire même saisie pour add ou modif -->
 				<h2>Choix du catalogue</h2>
 				<input type="hidden" name="uneErreur" value="${MesErreurs}"
 					id="id_erreur">
@@ -66,7 +66,6 @@
 						<div class="col-sm-6 col-md-4">
 							<input type="text" name="nbAnnees" value=""
 								id="libelle" class="form-control" required />
-<!-- 								 pattern="\d*" -->
 						</div>
 					</div>
 
