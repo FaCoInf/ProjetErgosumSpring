@@ -215,7 +215,18 @@ public class MultiController extends MultiActionController {
 			request.setAttribute("mesJouets", jouetServiceImpl.getAllJouet());
 			destinationPage = "/ListerJouets";
 		} catch (ConstraintViolationException ex) {
-			// TODO pop up : "le numéro est déjà utilisé"
+			request.setAttribute("MesErreurs", "Le numéro est déjà utilisé");
+			
+			request.setAttribute("jouet", unJouet);
+			request.setAttribute("title", "Ajouter un jouet");
+			request.setAttribute("textButton", "Ajouter");
+			request.setAttribute("action", "sauverJouet");
+			request.setAttribute("page", "sauverJouet.htm");
+			request.setAttribute("listCategorie", categorieService.getAllCategorie());
+			request.setAttribute("listTrancheAge", trancheageService.getAllTranchage());
+			request.setAttribute("listCatalogue", catalogueService.getAllCatalogue());
+
+			destinationPage = "/SaisieJouet";
 
 		} catch (Exception e) {
 			e.printStackTrace();
