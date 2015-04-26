@@ -2,6 +2,7 @@ package com.epul.ergosum.model;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -18,11 +19,11 @@ import javax.persistence.Table;
 @Table(name = "COMPORTE")
 public class Comporte implements java.io.Serializable {
 
-	private static final long serialVersionUID = -8658497389198494394L;
-	private ComporteId id;
-	private Jouet jouet;
-	private Catalogue catalogue;
-	private Integer quantite;
+	private static final long	serialVersionUID	= -8658497389198494394L;
+	private ComporteId			id;
+	private Jouet				jouet;
+	private Catalogue			catalogue;
+	private Integer				quantite;
 
 	public Comporte() {
 	}
@@ -33,8 +34,7 @@ public class Comporte implements java.io.Serializable {
 		this.catalogue = catalogue;
 	}
 
-	public Comporte(ComporteId id, Jouet jouet, Catalogue catalogue,
-			Integer quantite) {
+	public Comporte(ComporteId id, Jouet jouet, Catalogue catalogue, Integer quantite) {
 		this.id = id;
 		this.jouet = jouet;
 		this.catalogue = catalogue;
@@ -42,9 +42,7 @@ public class Comporte implements java.io.Serializable {
 	}
 
 	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "idannee", column = @Column(name = "ANNEE")),
-			@AttributeOverride(name = "idnumero", column = @Column(name = "NUMERO")) })
+	@AttributeOverrides({ @AttributeOverride(name = "idannee", column = @Column(name = "ANNEE")), @AttributeOverride(name = "idnumero", column = @Column(name = "NUMERO")) })
 	public ComporteId getId() {
 		return this.id;
 	}
@@ -53,7 +51,7 @@ public class Comporte implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "NUMERO")
 	public Jouet getJouet() {
 		return this.jouet;
@@ -63,7 +61,7 @@ public class Comporte implements java.io.Serializable {
 		this.jouet = jouet;
 	}
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "ANNEE")
 	public Catalogue getCatalogue() {
 		return this.catalogue;

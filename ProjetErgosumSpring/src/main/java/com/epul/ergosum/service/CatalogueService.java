@@ -2,6 +2,7 @@ package com.epul.ergosum.service;
 
 import java.util.List;
 
+import com.epul.ergosum.metier.CatalogueQuantites;
 import com.epul.ergosum.model.Catalogue;
 
 public interface CatalogueService {
@@ -13,4 +14,6 @@ public interface CatalogueService {
 	public int addCatalogue(Catalogue catalogue);
 
 	public int modifyCatalogue(Catalogue catalogue);
+
+	public List<CatalogueQuantites> getCatalogueBetweenYears(int anneeDepart, int nbAnnee);
 }

@@ -74,13 +74,13 @@ import javax.persistence.Table;
 @Table(name = "JOUET")
 public class Jouet implements java.io.Serializable {
 
-	private static final long serialVersionUID = -746025709126919028L;
+	private static final long	serialVersionUID	= -746025709126919028L;
 
-	private String numero;
-	private Categorie categorie;
-	private Trancheage trancheage;
-	private String libelle;
-	private Set<Comporte> comportes = new HashSet<Comporte>(0);
+	private String				numero;
+	private Categorie			categorie;
+	private Trancheage			trancheage;
+	private String				libelle;
+	private Set<Comporte>		comportes			= new HashSet<Comporte>(0);
 
 	public Jouet() {
 	}
@@ -91,8 +91,7 @@ public class Jouet implements java.io.Serializable {
 		this.trancheage = trancheage;
 	}
 
-	public Jouet(String numero, Categorie categorie, Trancheage trancheage,
-			String libelle, Set<Comporte> comportes) {
+	public Jouet(String numero, Categorie categorie, Trancheage trancheage, String libelle, Set<Comporte> comportes) {
 		this.numero = numero;
 		this.categorie = categorie;
 		this.trancheage = trancheage;
@@ -120,7 +119,7 @@ public class Jouet implements java.io.Serializable {
 		this.categorie = categorie;
 	}
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "CODETRANCHE")
 	public Trancheage getTrancheage() {
 		return this.trancheage;

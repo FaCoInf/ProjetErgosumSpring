@@ -5,7 +5,7 @@ import java.util.List;
 import com.epul.ergosum.model.Categorie;
 
 public interface CategorieDAO {
-	
+
 	public List<Categorie> getAllCategorie();
 
 	public Categorie getCategorie(String id);

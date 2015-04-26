@@ -53,18 +53,23 @@
 		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
 	</bean>
 
+	<bean id="comporteDAO" class="com.epul.ergosum.dao.ComporteDAOImpl">
+		<property name="sessionFactory" ref="hibernate3AnnotatedSessionFactory" />
+	</bean>
+
 	<bean id="jouetService" class="com.epul.ergosum.service.JouetServiceImpl">
 		<property name="jouetDAO" ref="jouetDAO" />
 	</bean>
-	
+
 	<bean id="catalogueService" class="com.epul.ergosum.service.CatalogueServiceImpl">
 		<property name="catalogueDAO" ref="catalogueDAO" />
+		<property name="comporteDAO" ref="comporteDAO" />
 	</bean>
-	
+
 	<bean id="CategorieService" class="com.epul.ergosum.service.CategorieServiceImpl">
 		<property name="categorieDAO" ref="CategorieDAO" />
 	</bean>
-	
+
 	<bean id="TrancheageService" class="com.epul.ergosum.service.TrancheageServiceImpl">
 		<property name="trancheageDAO" ref="trancheageDAO" />
 	</bean>

@@ -1,15 +1,16 @@
 package com.epul.ergosum.metier;
 
 public class CatalogueQuantites {
-	private String id;
-	private String quantiteDistribuee;
-	private String quantite;
+	private String	id;
+	private String	quantiteDistribuee;
+	private String	quantite;
+	private String	difference;
 
-	public CatalogueQuantites(String id, String quantiteDistribuee,
-			String quantite) {
+	public CatalogueQuantites(String id, String quantiteDistribuee, String quantite, String difference) {
 		this.id = id;
 		this.quantiteDistribuee = quantiteDistribuee;
 		this.quantite = quantite;
+		this.difference = difference;
 	}
 
 	public CatalogueQuantites() {
@@ -38,4 +39,13 @@ public class CatalogueQuantites {
 	public void setQuantite(String quantite) {
 		this.quantite = quantite;
 	}
+
+	public String getDifference() {
+		return difference;
+	}
+
+	public void setDifference(String difference) {
+		this.difference = difference;
+	}
+
 }

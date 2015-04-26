@@ -15,7 +15,7 @@ public class CategorieDAOImpl implements CategorieDAO {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Categorie> getAllCategorie() {
@@ -26,7 +26,7 @@ public class CategorieDAOImpl implements CategorieDAO {
 
 		return categories;
 	}
-	
+
 	@Override
 	public Categorie getCategorie(String id) {
 
@@ -37,6 +37,5 @@ public class CategorieDAOImpl implements CategorieDAO {
 
 		return result;
 	}
-	
 
 }
