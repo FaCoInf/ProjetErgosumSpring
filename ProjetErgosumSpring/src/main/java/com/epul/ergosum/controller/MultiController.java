@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
-import com.epul.ergosum.dao.CatalogueDAO;
-import com.epul.ergosum.dao.CategorieDAO;
-import com.epul.ergosum.dao.JouetDAO;
 import com.epul.ergosum.dao.TrancheageDAO;
 import com.epul.ergosum.model.Catalogue;
 import com.epul.ergosum.model.Categorie;
 import com.epul.ergosum.model.Jouet;
 import com.epul.ergosum.model.Trancheage;
+import com.epul.ergosum.service.CatalogueService;
+import com.epul.ergosum.service.CategorieService;
+import com.epul.ergosum.service.JouetService;
 
 /**
  * Handles requests for the application home page.
@@ -43,11 +43,11 @@ public class MultiController extends MultiActionController {
 	private Jouet				unJouet;
 
 	@Autowired
-	protected JouetDAO			jouetDAO;
+	protected JouetService		jouetServiceImpl;
 	@Autowired
-	protected CategorieDAO		categorieService;
+	protected CategorieService	categorieService;
 	@Autowired
-	protected CatalogueDAO		catalogueService;
+	protected CatalogueService	catalogueService;
 	@Autowired
 	protected TrancheageDAO		trancheageService;
 
@@ -101,8 +101,10 @@ public class MultiController extends MultiActionController {
 				trancheCode = Integer.parseInt(tranche);
 			}
 
-			List<Jouet> jouets = jouetDAO.getAllJouet(); // get en fonction code
-															// & tranche
+			List<Jouet> jouets = jouetServiceImpl.getAllJouet(); // get en
+																	// fonction
+																	// code
+																	// & tranche
 			request.setAttribute("mesJouets", jouets);
 			request.setAttribute("listCategorie", categorieService.getAllCategorie());
 			request.setAttribute("listTrancheAge", trancheageService.getAllTranchage());
@@ -170,7 +172,7 @@ public class MultiController extends MultiActionController {
 				unJouet = new Jouet();
 			} else { // on r�cup�re le jouet courant
 
-				unJouet = jouetDAO.getJouet(id);
+				unJouet = jouetServiceImpl.getJouet(id);
 			}
 			unJouet.setNumero(request.getParameter("id"));
 			unJouet.setLibelle(request.getParameter("libelle"));
@@ -184,7 +186,7 @@ public class MultiController extends MultiActionController {
 
 			// sauvegarde du jouet
 			if (request.getParameter("type").equals("modifierJouet")) {
-				jouetDAO.modifyJouet(unJouet);
+				jouetServiceImpl.modifyJouet(unJouet);
 			} else {
 
 				Catalogue leCatalogue = catalogueService.getCatalogue(Integer.parseInt(request.getParameter("codecatalogue")));
@@ -199,10 +201,10 @@ public class MultiController extends MultiActionController {
 					leCatalogue.setQuantiteDistribuee(leCatalogue.getQuantiteDistribuee() + quantiteDistribution);
 					catalogueService.modifyCatalogue(leCatalogue);
 				}
-				jouetDAO.addJouet(unJouet);
+				jouetServiceImpl.addJouet(unJouet);
 			}
 			try {
-				request.setAttribute("mesJouets", jouetDAO.getAllJouet());
+				request.setAttribute("mesJouets", jouetServiceImpl.getAllJouet());
 				destinationPage = "/ListerJouets";
 			} catch (MappingException e) {
 				request.setAttribute("MesErreurs", e.getMessage());
@@ -210,7 +212,7 @@ public class MultiController extends MultiActionController {
 			}
 
 			// }
-			request.setAttribute("mesJouets", jouetDAO.getAllJouet());
+			request.setAttribute("mesJouets", jouetServiceImpl.getAllJouet());
 			destinationPage = "/ListerJouets";
 		} catch (ConstraintViolationException ex) {
 			// TODO pop up : "le numéro est déjà utilisé"
@@ -235,7 +237,7 @@ public class MultiController extends MultiActionController {
 			// GestionErgosum unService = new GestionErgosum();
 			//
 			// if (unService != null) {
-			Jouet unJouet = jouetDAO.getJouet(id);
+			Jouet unJouet = jouetServiceImpl.getJouet(id);
 			request.setAttribute("jouet", unJouet);
 			// request.setAttribute("categories",
 			// unService.listerToutesLesCategories());
@@ -280,11 +282,11 @@ public class MultiController extends MultiActionController {
 			if (ids != null) {
 				// unService.effacer(ids);
 				for (int i = 0; i < ids.length; i++) {
-					jouetDAO.suppressJouet(ids[i]);
+					jouetServiceImpl.suppressJouet(ids[i]);
 				}
 			}
 			// preparation de la liste
-			request.setAttribute("mesJouets", jouetDAO.getAllJouet());
+			request.setAttribute("mesJouets", jouetServiceImpl.getAllJouet());
 		}
 
 		catch (MappingException e) {
@@ -316,11 +318,8 @@ public class MultiController extends MultiActionController {
 
 		String destinationPage = "/Erreur";
 		try {
-			// GestionErgosum unService = new GestionErgosum();
-			//
-			// if (unService != null)
-			// request.setAttribute("catalogues",
-			// unService.listerTousLesCatalogues());
+
+			request.setAttribute("catalogues", catalogueService.getAllCatalogue());
 			destinationPage = "/ChoixCatalogue";
 		} catch (MappingException e) {
 			e.printStackTrace();
@@ -341,9 +340,7 @@ public class MultiController extends MultiActionController {
 			String id = request.getParameter("id");
 			System.out.println(request.getParameter("anneeDebut"));
 			System.out.println(request.getParameter("nbAnnees"));
-			// GestionErgosum unService = new GestionErgosum();
-			//
-			// if (unService != null) {
+
 			// preparation de la liste
 			// request.setAttribute("mesCataloguesQuantites", unService
 			// .listerCatalogueQuantites(Integer.parseInt(request
