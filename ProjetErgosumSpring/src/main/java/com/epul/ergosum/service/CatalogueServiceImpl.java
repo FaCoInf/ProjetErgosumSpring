@@ -32,6 +32,13 @@ public class CatalogueServiceImpl implements CatalogueService {
 		return catalogueDAO.modifyCatalogue(catalogue);
 	}
 
+	@Override
+	public List<Catalogue> getNbCatalogueFromYear(int anneeDepart, int nbAnnee) {
+		System.out.println(catalogueDAO.getNbCatalogueFromYear(anneeDepart, nbAnnee).toString());
+
+		return catalogueDAO.getNbCatalogueFromYear(anneeDepart, nbAnnee);
+	}
+
 	public CatalogueDAO getCatalogueDAO() {
 		return catalogueDAO;
 	}

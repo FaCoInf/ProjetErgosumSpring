@@ -80,7 +80,12 @@ public class JouetDAOImpl implements JouetDAO {
 	// TODO soustraire dans catalogue la quantit� du joeut associ�
 	public int suppressJouet(String id) {
 		Session currentSession = this.sessionFactory.openSession();
-		Query query = currentSession.createQuery("delete Jouet where NUMERO = :identifier");
+
+		Query query = currentSession.createQuery("delete Comporte where NUMERO = :identifier");
+		query.setParameter("identifier", id);
+		query.executeUpdate();
+
+		query = currentSession.createQuery("delete Jouet where NUMERO = :identifier");
 		query.setParameter("identifier", id);
 		int result = query.executeUpdate();
 		currentSession.close();

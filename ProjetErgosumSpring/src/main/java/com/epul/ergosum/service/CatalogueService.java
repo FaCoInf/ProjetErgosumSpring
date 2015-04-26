@@ -13,4 +13,6 @@ public interface CatalogueService {
 	public int addCatalogue(Catalogue catalogue);
 
 	public int modifyCatalogue(Catalogue catalogue);
+
+	public List<Catalogue> getNbCatalogueFromYear(int anneeDepart, int nbAnnee);
 }

@@ -267,10 +267,7 @@ public class MultiController extends MultiActionController {
 		String destinationPage = "";
 		try {
 			String id = request.getParameter("id");
-			// GestionErgosum unService = new GestionErgosum();
-			//
-			// if (unService != null) {
-			// recuperation de la liste des id a effacer
+
 			String[] ids = request.getParameterValues("id");
 
 			// effacement de la liste des id
@@ -337,10 +334,8 @@ public class MultiController extends MultiActionController {
 			System.out.println(request.getParameter("nbAnnees"));
 
 			// preparation de la liste
-			// request.setAttribute("mesCataloguesQuantites", unService
-			// .listerCatalogueQuantites(Integer.parseInt(request
-			// .getParameter("anneeDebut")), Integer
-			// .parseInt(request.getParameter("nbAnnees"))));
+			request.setAttribute("mesCataloguesQuantites",
+					catalogueService.getNbCatalogueFromYear(Integer.parseInt(request.getParameter("anneeDebut")), Integer.parseInt(request.getParameter("nbAnnees"))));
 			destinationPage = "/ListerCatalogues";
 			// }
 		}
