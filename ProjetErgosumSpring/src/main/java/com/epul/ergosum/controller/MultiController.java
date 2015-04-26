@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
-import com.epul.ergosum.dao.TrancheageDAO;
 import com.epul.ergosum.model.Catalogue;
 import com.epul.ergosum.model.Categorie;
 import com.epul.ergosum.model.Jouet;
@@ -28,6 +27,7 @@ import com.epul.ergosum.model.Trancheage;
 import com.epul.ergosum.service.CatalogueService;
 import com.epul.ergosum.service.CategorieService;
 import com.epul.ergosum.service.JouetService;
+import com.epul.ergosum.service.TrancheageService;
 
 /**
  * Handles requests for the application home page.
@@ -49,23 +49,7 @@ public class MultiController extends MultiActionController {
 	@Autowired
 	protected CatalogueService	catalogueService;
 	@Autowired
-	protected TrancheageDAO		trancheageService;
-
-	// protected JouetService jouetService;
-	//
-	// protected CategorieService categorieService;
-	//
-	// protected CatalogueService catalogueService;
-	//
-	// protected TrancheageService trancheageService;
-
-	// @PostConstruct
-	// public void setServices(){
-	// jouetService = new JouetServiceImpl();
-	// categorieService = new CategorieServiceImpl();
-	// catalogueService = new CatalogueServiceImpl();
-	// trancheageService = new TrancheageServiceImpl();
-	// }
+	protected TrancheageService	trancheageService;
 
 	/**
 	 * 
@@ -107,7 +91,7 @@ public class MultiController extends MultiActionController {
 																	// & tranche
 			request.setAttribute("mesJouets", jouets);
 			request.setAttribute("listCategorie", categorieService.getAllCategorie());
-			request.setAttribute("listTrancheAge", trancheageService.getAllTranchage());
+			request.setAttribute("listTrancheAge", trancheageService.getAllTrancheage());
 
 			return new ModelAndView("ListerJouets");
 		} catch (MappingException e) {
@@ -133,7 +117,7 @@ public class MultiController extends MultiActionController {
 			request.setAttribute("jouet", new Jouet());
 
 			request.setAttribute("listCategorie", categorieService.getAllCategorie());
-			request.setAttribute("listTrancheAge", trancheageService.getAllTranchage());
+			request.setAttribute("listTrancheAge", trancheageService.getAllTrancheage());
 			request.setAttribute("listCatalogue", catalogueService.getAllCatalogue());
 
 			request.setAttribute("title", "Ajouter un jouet");
@@ -216,14 +200,14 @@ public class MultiController extends MultiActionController {
 			destinationPage = "/ListerJouets";
 		} catch (ConstraintViolationException ex) {
 			request.setAttribute("MesErreurs", "Le numéro est déjà utilisé");
-			
+
 			request.setAttribute("jouet", unJouet);
 			request.setAttribute("title", "Ajouter un jouet");
 			request.setAttribute("textButton", "Ajouter");
 			request.setAttribute("action", "sauverJouet");
 			request.setAttribute("page", "sauverJouet.htm");
 			request.setAttribute("listCategorie", categorieService.getAllCategorie());
-			request.setAttribute("listTrancheAge", trancheageService.getAllTranchage());
+			request.setAttribute("listTrancheAge", trancheageService.getAllTrancheage());
 			request.setAttribute("listCatalogue", catalogueService.getAllCatalogue());
 
 			destinationPage = "/SaisieJouet";
@@ -255,7 +239,7 @@ public class MultiController extends MultiActionController {
 			// request.setAttribute("tranches",
 			// unService.listerToutesLesTranches());
 			request.setAttribute("listCategorie", categorieService.getAllCategorie());
-			request.setAttribute("listTrancheAge", trancheageService.getAllTranchage());
+			request.setAttribute("listTrancheAge", trancheageService.getAllTrancheage());
 			request.setAttribute("listCatalogue", catalogueService.getAllCatalogue());
 
 			request.setAttribute("title", "Modifier le jouet");
