@@ -58,14 +58,14 @@
 						<label class="col-sm-4 col-md-5 control-label">Année de départ :</label>
 						<div class="col-sm-6 col-md-4">
 							<input type="text" name="anneeDebut" value=""
-								id="libelle" class="form-control" required />
+								id="libelle" class="form-control" required pattern="\d*" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-4 col-md-5 control-label">Nombre d'années :</label>
 						<div class="col-sm-6 col-md-4">
 							<input type="text" name="nbAnnees" value=""
-								id="libelle" class="form-control" required />
+								id="libelle" class="form-control" required pattern="\d*" />
 						</div>
 					</div>
 
