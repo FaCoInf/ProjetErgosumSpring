@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.MappingException;
+import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -211,6 +212,9 @@ public class MultiController extends MultiActionController {
 			// }
 			request.setAttribute("mesJouets", jouetDAO.getAllJouet());
 			destinationPage = "/ListerJouets";
+		} catch (ConstraintViolationException ex) {
+			// TODO pop up : "le numéro est déjà utilisé"
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("MesErreurs", e.getMessage());
