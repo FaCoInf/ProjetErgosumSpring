@@ -57,7 +57,7 @@
 			<div class="row asideTitre">Pages</div>
 			<div class="row">
 				<ul class="nav nav-pills nav-stacked">
-					<li role="presentation"><a href="index.htm">Accueil</a></li>
+					<li role="presentation" class="active"><a href="index.htm">Accueil</a></li>
 					<hr>
 					<li role="presentation"><a href="afficherJouets.htm">Jouets</a>
 						<div class="row">
