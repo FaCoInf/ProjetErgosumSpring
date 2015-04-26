@@ -42,23 +42,29 @@ public class JouetDAOImpl implements JouetDAO {
 
 	@Override
 	@Transactional
-	//TODO ajouter au catalogue la quantité du jouet ajouté
+	//TODO ajouter au catalogue la quantitï¿½ du jouet ajoutï¿½
 	public int addJouet(Jouet jouet) {
 		Session currentSession = this.sessionFactory.openSession();
-		Query query = currentSession.createQuery("insert into Jouet(numero, codecateg, codetranche, libelle)");
-		query.setParameter("numero", jouet.getNumero());
-		query.setParameter("codecateg", jouet.getCategorie().getCodecateg());
-		query.setParameter("codetranche", jouet.getTrancheage().getCodetranche());
-		query.setParameter("libelle", jouet.getLibelle());
-		int result = query.executeUpdate();
+		currentSession.beginTransaction();
+		currentSession.save(jouet);
+		currentSession.getTransaction().commit();
 		currentSession.close();
-		return result;
+		return Integer.parseInt(jouet.getNumero());
 	}
 
 	@Override
 	public int modifyJouet(Jouet jouet){
-		suppressJouet(jouet);
-		return addJouet(jouet);
+//		suppressJouet(jouet);
+//		return addJouet(jouet);
+		Session currentSession = this.sessionFactory.openSession();
+		Query query = currentSession.createQuery("update Jouet set CODECATEG = :codecateg, CODETRANCHE = :codetranche, LIBELLE = :libelle where NUMERO = :numero ");
+		query.setParameter("numero", jouet.getNumero());
+		query.setParameter("libelle", jouet.getLibelle());
+		query.setParameter("codecateg", jouet.getCategorie().getCodecateg());
+		query.setParameter("codetranche", jouet.getTrancheage().getCodetranche());
+		int result = query.executeUpdate();
+		currentSession.close();
+		return result;
 	}
 	
 	@Override
@@ -70,7 +76,7 @@ public class JouetDAOImpl implements JouetDAO {
 
 	@Override
 	@Transactional
-	//TODO soustraire dans catalogue la quantité du joeut associé
+	//TODO soustraire dans catalogue la quantitï¿½ du joeut associï¿½
 	public int suppressJouet(String id) {
 		Session currentSession = this.sessionFactory.openSession();
 		Query query = currentSession.createQuery("delete Jouet where NUMERO = :identifier");
